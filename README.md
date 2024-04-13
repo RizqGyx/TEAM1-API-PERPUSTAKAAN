@@ -18,7 +18,7 @@
   <a href="#postgress">postgress</a> •
 </p>
 
-![screenshot](./public/images/db-diagram.jpg)
+![screenshot](./public/images/db-diagram.png)
 
 ## KM x Binar Academy Batch 6
 
