@@ -9,6 +9,7 @@ module.exports = {
         role: "Admin",
         address: "Jalan Sentosa no 12",
         phoneNum: "0822-2222-2222",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -17,6 +18,7 @@ module.exports = {
         role: "Staff",
         address: "Jalan Abadi no 13",
         phoneNum: "0833-3333-3333",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -25,6 +27,7 @@ module.exports = {
         role: "Staff",
         address: "Jalan Jalan no 14",
         phoneNum: "0844-4444-4444",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -33,6 +36,7 @@ module.exports = {
         role: "Staff",
         address: "Jalan Colours no 15",
         phoneNum: "0855-5555-5555",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -41,6 +45,7 @@ module.exports = {
         role: "Staff",
         address: "Jalan Anontokyo no 16",
         phoneNum: "0866-6666-6666",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -49,6 +54,7 @@ module.exports = {
         role: "Guest",
         address: "625 Summit Street, Westboro, New Mexico, 9171",
         phoneNum: "+1 (980) 461-3161",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -57,6 +63,7 @@ module.exports = {
         role: "Guest",
         address: "553 Tech Place, Ebro, American Samoa, 3552",
         phoneNum: "+1 (802) 540-3811",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -65,6 +72,7 @@ module.exports = {
         role: "Guest",
         address: "327 Ryder Street, Genoa, Georgia, 7753",
         phoneNum: "+1 (937) 448-3335",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -73,6 +81,7 @@ module.exports = {
         role: "Guest",
         address: "525 Herkimer Street, Forbestown, Delaware, 6457",
         phoneNum: "+1 (851) 541-3210",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -81,6 +90,7 @@ module.exports = {
         role: "Guest",
         address: "561 Erasmus Street, Sperryville, Illinois, 8390",
         phoneNum: "+1 (973) 596-2755",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -89,6 +99,7 @@ module.exports = {
         role: "Guest",
         address: "166 Woodpoint Road, Disautel, Florida, 7570",
         phoneNum: "+1 (955) 438-2112",
+        imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
       }

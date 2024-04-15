@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const flash = require("connect-flash");
 const session = require("express-session");
+const apiErr = require("../controller/errorController")
 
 const router = require("../routes/index");
 
@@ -23,5 +24,8 @@ app.use(session({ secret: "team1", saveUninitialized: true, resave: true }));
 app.use(express.static(`${__dirname}/public`));
 
 app.use(router);
+
+app.use(apiErr.onError);
+app.use(apiErr.onLost);
 
 module.exports = app;
