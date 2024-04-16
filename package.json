@@ -12,7 +12,7 @@
     "db-migrate": "sequelize db:migrate",
     "db-undo-migrate": "sequelize db:migrate:undo:all",
     "db-seed": "sequelize db:seed:all",
-    "db-undo-seed": "sequelize db:seed:undo:all"
+    "db-undo-seed": ""
   },
   "keywords": [
     "Kampus Merdeka Batch 6",
