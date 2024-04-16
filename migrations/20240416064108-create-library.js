@@ -2,29 +2,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable('Libraries', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      bookId: {
-        type: Sequelize.INTEGER
+      libraryName: {
+        type: Sequelize.STRING
       },
-      borrowerId: {
-        type: Sequelize.INTEGER
+      city: {
+        type: Sequelize.STRING
       },
-      dateBorrowed: {
-        type: Sequelize.DATE
+      address: {
+        type: Sequelize.STRING
       },
-      returnDate: {
-        type: Sequelize.DATE
-      },
-      status: {
-        type: Sequelize.ENUM(["Pending", "Rejected", "Accepted","Available", "Returned", "Unavailable"])
-      },
-      issuerId: {
+      staffId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -38,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Transactions');
+    await queryInterface.dropTable('Libraries');
   }
 };

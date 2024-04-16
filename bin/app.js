@@ -4,7 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const flash = require("connect-flash");
 const session = require("express-session");
-const apiErr = require("../controller/errorController")
+const apiErr = require("../controllers/errorController")
 
 const router = require("../routes/index");
 
