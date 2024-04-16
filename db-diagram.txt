@@ -42,8 +42,7 @@ Table Member {
   name string
   city string
   address string
-  phone integer
-  email string
+  phone string
   createdAt timestamp
   updatedAt timestamp
 }
@@ -66,7 +65,7 @@ Table Staff {
   name string
   city string
   address string
-  phone integer
+  phone string
   email string
   role string [note: "Owner, Admin, Staff"]
   libraryId integer [ref: > Libraries.id]
