@@ -5,7 +5,7 @@ const ApiError = require("../utils/apiError");
 
 const registerStaff = async (req, res, next) => {
   try {
-    const { name, email, password, confirmPassword, age, address } = req.body;
+    const { name, email, password, confirmPassword, age, address, role } = req.body;
 
     // validasi untuk check apakah email nya udah ada
     const user = await Auth.findOne({
@@ -38,7 +38,7 @@ const registerStaff = async (req, res, next) => {
       name,
       age,
       address,
-      role: "Guest",
+      role,
     });
     const test = await Auth.create({
       email,
@@ -65,7 +65,7 @@ const registerStaff = async (req, res, next) => {
 
 const createAdmin = async (req, res, next) => {
   try {
-    const { name, email, password, confirmPassword, age, address } = req.body;
+    const { name, email, password, confirmPassword, age, address, role } = req.body;
 
     // Validasi untuk check apakah email sudah ada
     const user = await Auth.findOne({ where: { email } });
@@ -92,7 +92,7 @@ const createAdmin = async (req, res, next) => {
       name,
       age,
       address,
-      role: "admin", // Perhatikan penggunaan "admin" dengan huruf kecil
+      role, // Perhatikan penggunaan "admin" dengan huruf kecil
     });
 
     // Membuat entri autentikasi untuk pengguna baru
@@ -100,7 +100,7 @@ const createAdmin = async (req, res, next) => {
       email,
       password: hashedPassword,
       userId: newUser.id,
-      role: "admin", // Tambahkan properti role di sini
+      role, // Tambahkan properti role di sini
     });
     
 

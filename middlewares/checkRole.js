@@ -1,10 +1,10 @@
 const ApiError = require("../utils/apiError");
 
-const checkRole = (...roles) => {
+const checkRole = (role) => {
   return async (req, res, next) => {
     try {
-      if (!req.user || !req.user.role || !roles.includes(req.user.role.toLowerCase())) {
-        return next(new ApiError("Kamu bukan Admin/staff, jadi tidak bisa akses", 403));
+      if (req.user.role !== role) {
+        next(new ApiError(`kamu bukan ${role} jadi tidak bisa akses`, 401));
       }
       next();
     } catch (err) {
@@ -12,6 +12,5 @@ const checkRole = (...roles) => {
     }
   };
 };
-
 
 module.exports = checkRole;
