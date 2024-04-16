@@ -7,12 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "bookId",
       });
 
-      Transactions.belongsTo(models.Member, {
-        foreignKey: "memberId",
-      });
-
-      Transactions.belongsTo(models.Staff, {
-        foreignKey: "staffId",
+      Transactions.belongsTo(models.User, {
+        foreignKey: "userId",
       });
 
       Transactions.belongsTo(models.Library, {
@@ -29,8 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       bookId: DataTypes.INTEGER,
-      memberId: DataTypes.INTEGER,
-      staffId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       libraryId: DataTypes.INTEGER,
       borrowDate: DataTypes.DATE,
       returnDate: DataTypes.DATE,

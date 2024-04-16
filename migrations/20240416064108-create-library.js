@@ -18,7 +18,7 @@ module.exports = {
       address: {
         type: Sequelize.STRING
       },
-      staffId: {
+      userId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
