@@ -1,34 +1,45 @@
-'use strict';
-const { Model } = require('sequelize');
-
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Transaction extends Model {
+  class Transactions extends Model {
     static associate(models) {
-      Transaction.belongsTo(models.User, {
-        foreignKey: "borrowerId"
+      Transactions.belongsTo(models.Book, {
+        foreignKey: "bookId",
       });
-      Transaction.belongsTo(models.User, {
-        foreignKey: "issuerId"
+
+      Transactions.belongsTo(models.Member, {
+        foreignKey: "memberId",
       });
-      Transaction.belongsTo(models.Book, {
-        foreignKey: {
-          name: "bookId"
-        }
+
+      Transactions.belongsTo(models.Staff, {
+        foreignKey: "staffId",
       });
-      // Add other associations for Transaction (if needed)
+
+      Transactions.belongsTo(models.Library, {
+        foreignKey: "libraryId",
+      });
     }
   }
-
-  Transaction.init({
-    bookId: DataTypes.INTEGER,
-    borrowerId: DataTypes.INTEGER,
-    dateBorrowed: DataTypes.DATE,
-    returnDate: DataTypes.DATE,
-    status: DataTypes.STRING,
-    issuerId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Transaction',
-  });
-  return Transaction;
+  Transactions.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      bookId: DataTypes.INTEGER,
+      memberId: DataTypes.INTEGER,
+      staffId: DataTypes.INTEGER,
+      libraryId: DataTypes.INTEGER,
+      borrowDate: DataTypes.DATE,
+      returnDate: DataTypes.DATE,
+      status: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Transactions",
+    }
+  );
+  return Transactions;
 };

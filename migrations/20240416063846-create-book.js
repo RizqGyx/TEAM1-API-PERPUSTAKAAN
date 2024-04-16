@@ -18,17 +18,26 @@ module.exports = {
       author: {
         type: Sequelize.STRING
       },
+      language: {
+        type: Sequelize.STRING
+      },
+      publicationYear: {
+        type: Sequelize.INTEGER
+      },
       publisher: {
         type: Sequelize.STRING
       },
       imageCover: {
         type: Sequelize.TEXT
       },
-      copies: {
+      numOfBooks: {
         type: Sequelize.INTEGER
       },
-      availableAt: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER)
+      numBorrowed: {
+        type: Sequelize.INTEGER
+      },
+      rackId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

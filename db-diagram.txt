@@ -1,0 +1,84 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Books {
+  id integer [pk]
+  title string
+  genre string
+  author string
+  language string
+  publicationYear integer
+  publisher string
+  imageCover text
+  numOfBooks integer
+  numBorrowed integer
+  rackId integer [ref: > Racks.id]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Libraries {
+  id integer [pk]
+  libraryName string
+  city string
+  address string
+  staffId integer [ref: > Staff.id]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Auth {
+  id integer [pk]
+  memberId integer [ref: > Member.id]
+  password string
+  confirmPassword string
+  email string
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Member {
+  id integer [pk]
+  name string
+  city string
+  address string
+  phone integer
+  email string
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Transactions {
+  id integer [pk]
+  bookId integer [ref: > Books.id]
+  memberId integer [ref: > Member.id]
+  staffId integer [ref: > Staff.id]
+  libraryId integer [ref: > Libraries.id]
+  borrowDate date
+  returnDate date
+  status string
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Staff {
+  id integer [pk]
+  name string
+  city string
+  address string
+  phone integer
+  email string
+  role string [note: "Owner, Admin, Staff"]
+  libraryId integer [ref: > Libraries.id]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Racks {
+  id integer [pk]
+  rackNumber integer
+  floorNumber integer
+  libraryId integer [ref: > Libraries.id]
+  createdAt timestamp
+  updatedAt timestamp
+}
