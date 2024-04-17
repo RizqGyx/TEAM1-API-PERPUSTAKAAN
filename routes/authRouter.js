@@ -5,7 +5,7 @@ const Auth = require("../controller/authController");
 const checkRole = require("../middlewares/checkRole");
 
 router.post("/login", Auth.login);
-router.post("/staff/register", Auth.registerStaff);
+router.post("/staff/register", Authenticate, Auth.registerStaff);
 router.post("/admin/register", Authenticate, checkRole("Admin"), Auth.createAdmin);
 // router.post("/admin/register", Auth.createAdmin);
 module.exports = router;
