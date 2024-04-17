@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     const bearerToken = req.headers.authorization;
 
     if (!bearerToken) {
-      return next(new ApiError("token nya gak ada", 401));
+      return next(new ApiError("token Token not found!", 401));
     }
 
     const token = bearerToken.split("Bearer ")[1];
@@ -20,6 +20,9 @@ module.exports = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
+    if (err.message === "jwt expired") {
+      next(new ApiError("Token expired", 400));
+    }
     next(new ApiError(err.message, 500));
   }
 };

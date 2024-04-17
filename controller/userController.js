@@ -23,7 +23,7 @@ const findUserById = async (req, res, next) => {
     const user = await User.findByPk(req.params.id);
 
     if (!user) {
-      next(new ApiError("User dengan ID tersebut tidak ditemukan", 404));
+      next(new ApiError("User with this ID not found", 404));
     }
 
     res.status(200).json({
@@ -57,7 +57,7 @@ const updateUser = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "User berhasil diperbarui",
+      message: "User updated successful",
     });
   } catch (err) {
     next(new ApiError(err.message, 400));
@@ -69,7 +69,7 @@ const deleteUser = async (req, res, next) => {
     const user = await User.findByPk(req.params.id);
 
     if (!user) {
-      next(new ApiError("User dengan ID tersebut tidak ditemukan", 404));
+      next(new ApiError("User with this ID not found", 404));
     }
 
     await User.destroy({
@@ -80,7 +80,7 @@ const deleteUser = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "User berhasil dihapus",
+      message: "successfully deleted user",
     });
   } catch (err) {
     next(new ApiError(err.message, 400));
