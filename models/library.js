@@ -1,35 +1,38 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Library extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      Library.hasMany(models.Book, {
-        foreignKey: {
-          name: "availableAt"
-        }
-      })
+      Library.hasMany(models.User, {
+        foreignKey: "libraryId",
+      });
+
+      Library.hasMany(models.Rack, {
+        foreignKey: "libraryId",
+      });
 
       Library.belongsTo(models.User, {
-        foreignKey: {
-          name: "staffId"
-        }
-      })
+        foreignKey: "userId",
+      });
     }
   }
-  Library.init({
-    libraryName: DataTypes.STRING,
-    address: DataTypes.STRING,
-    staffId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Library',
-  });
+  Library.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      libraryName: DataTypes.STRING,
+      city: DataTypes.STRING,
+      address: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Library",
+    }
+  );
   return Library;
 };

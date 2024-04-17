@@ -1,47 +1,53 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Transaction, {
-        foreignKey:{
-          name: "borrowerId"
-        }
-      })
-
-      User.hasMany(models.Transaction, {
-        foreignKey:{
-          name: "issuerId"
-        }
-      })
-
       User.hasOne(models.Auth, {
-        foreignKey: {
-          name: "userId"
-        }
-      })
+        foreignKey: "userId",
+      });
 
       User.hasMany(models.Library, {
-        foreignKey: {
-          name: "staffId"
-        }
-      })
+        foreignKey: "userId",
+      });
+
+      User.belongsTo(models.Library, {
+        foreignKey: "libraryId",
+        allowNull: false,
+      });
     }
   }
-  User.init({
-    name: DataTypes.STRING,
-    role: {
-      type: DataTypes.ENUM(["Guest", "Admin", "Staff"]),
-      defaultValue: "Guest"
+
+  User.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: DataTypes.STRING,
+      city: DataTypes.STRING,
+      address: DataTypes.STRING,
+      phone: DataTypes.STRING,
+      profileImage: {
+        type: DataTypes.TEXT,
+        defaultValue:
+          "https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
+      },
+      role: {
+        type: DataTypes.ENUM(["Admin", "Manager", "Staff"]),
+        defaultValue: "Staff",
+      },
+      libraryId: DataTypes.INTEGER,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
-    address: DataTypes.STRING,
-    phoneNum: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
+
   return User;
 };

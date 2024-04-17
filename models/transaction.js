@@ -1,34 +1,40 @@
-'use strict';
-const { Model } = require('sequelize');
-
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {
     static associate(models) {
-      Transaction.belongsTo(models.User, {
-        foreignKey: "borrowerId"
-      });
-      Transaction.belongsTo(models.User, {
-        foreignKey: "issuerId"
-      });
       Transaction.belongsTo(models.Book, {
-        foreignKey: {
-          name: "bookId"
-        }
+        foreignKey: "bookId",
       });
-      // Add other associations for Transaction (if needed)
+
+      Transaction.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
+
+      Transaction.belongsTo(models.Library, {
+        foreignKey: "libraryId",
+      });
     }
   }
-
-  Transaction.init({
-    bookId: DataTypes.INTEGER,
-    borrowerId: DataTypes.INTEGER,
-    dateBorrowed: DataTypes.DATE,
-    returnDate: DataTypes.DATE,
-    status: DataTypes.STRING,
-    issuerId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Transaction',
-  });
+  Transaction.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      bookId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
+      libraryId: DataTypes.INTEGER,
+      borrowDate: DataTypes.DATE,
+      returnDate: DataTypes.DATE,
+      status: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Transaction",
+    }
+  );
   return Transaction;
 };
