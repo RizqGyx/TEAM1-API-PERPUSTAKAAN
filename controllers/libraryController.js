@@ -3,12 +3,36 @@ const ApiError = require("../utils/apiError");
 
 const findLibrarys = async (req, res, next) => {
     try {
-        const librarys = await Library.findAll();
+        let filters = {};
+        if (req.query.libraryName) {
+            filters.libraryName = req.query.libraryName;
+        }
+        if (req.query.city) {
+            filters.city = req.query.city;
+        }
+        if (req.query.address) {
+            filters.address = req.query.address;
+        }
+        if (req.query.userId) {
+            filters.userId = req.query.userId;
+        }
+
+        const { page = 1, limit = 10 } = req.query;
+        const offset = (page - 1) * limit;
+
+        const librarys = await Library.findAndCountAll({
+            where: filters,
+            offset,
+            limit,
+        });
 
         res.status(200).json({
             status: "Success",
             data: {
-                librarys,
+                librarys: librarys.rows,
+                totalItems: librarys.count,
+                totalPages: Math.ceil(librarys.count / limit),
+                currentPage: page,
             },
         });
     } catch (err) {
