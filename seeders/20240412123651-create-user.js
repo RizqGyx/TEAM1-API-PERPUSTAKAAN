@@ -102,6 +102,15 @@ module.exports = {
         imgUrl: "http://via.placeholder.com/46x46",
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        name: "Coba terakhir",
+        role: "Admin",
+        address: "BinarAcademy",
+        phoneNum: "0822-2222-2244",
+        imgUrl: "http://via.placeholder.com/46x46",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
 
@@ -193,7 +202,15 @@ module.exports = {
         email: "Eaton@gmail.com",
         createdAt: new Date(),
         updatedAt: new Date()
-      }      
+      },
+      {
+        userId: 43,
+        password: "passwordkelompok1",
+        confirmPassword: "passwordkelompok1",
+        email: "terakhircobaa1@gmail.com",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }       
       
     ])
   },
