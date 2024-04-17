@@ -11,12 +11,15 @@ module.exports = {
       },
       rackNumber: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       floorNumber: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       libraryId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

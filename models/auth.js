@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Auth.belongsTo(models.User, {
         foreignKey: "userId",
+        allowNull: false,
       });
     }
   }
@@ -18,8 +19,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: DataTypes.INTEGER,
       password: DataTypes.STRING,
-      confirmPassword: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isEmail: {
+            msg: "Please enter a valid email",
+          },
+        },
+      },
     },
     {
       sequelize,

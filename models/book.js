@@ -22,7 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       language: DataTypes.STRING,
       publicationYear: DataTypes.INTEGER,
       publisher: DataTypes.STRING,
-      imageCover: DataTypes.TEXT,
+      imageCover: {
+        type: DataTypes.TEXT,
+        defaultValue:
+          "https://dailymockup.com/wp-content/uploads/edd/2019/04/free-book-cover-mockup-psd.jpg",
+      },
       numOfBooks: DataTypes.INTEGER,
       numBorrowed: DataTypes.INTEGER,
       rackId: DataTypes.INTEGER,

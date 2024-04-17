@@ -4,7 +4,16 @@ const { Op } = require("sequelize");
 
 const createTransaction = async (req, res, next) => {
   try {
-    const transaction = await Transaction.create(req.body);
+    const currentDate = new Date();
+    const returnDate = new Date(currentDate);
+    returnDate.setDate(returnDate.getDate() + 3);
+
+    const transaction = await Transaction.create({
+      ...req.body,
+      borrowDate: currentDate,
+      returnDate: returnDate,
+    });
+
     res.status(201).json({
       status: "Success",
       data: {
@@ -65,13 +74,13 @@ const findTransactions = async (req, res, next) => {
     res.status(200).json({
       status: "Success",
       data: {
-        transactions,
         pagination: {
           totalData: count,
           totalPages,
           pageNum,
           pageSize,
         },
+        transactions,
       },
     });
   } catch (err) {
@@ -106,9 +115,13 @@ const updateTransaction = async (req, res, next) => {
     if (updatedRowsCount === 0) {
       throw new ApiError("Transaction not found", 404);
     }
+
+    const updatedTransaction = await Transaction.findByPk(id);
+
     res.status(200).json({
       status: "Success",
-      message: "Transaction updated successfully",
+      message: `Transaction with id : ${id} updated successfully`,
+      data: updatedTransaction,
     });
   } catch (err) {
     next(new ApiError(err.message, err.statusCode || 400));
@@ -126,7 +139,7 @@ const deleteTransaction = async (req, res, next) => {
     }
     res.status(200).json({
       status: "Success",
-      message: "Transaction deleted successfully",
+      message: `Transaction with id : ${id} deleted successfully`,
     });
   } catch (err) {
     next(new ApiError(err.message, err.statusCode || 400));

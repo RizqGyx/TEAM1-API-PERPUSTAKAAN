@@ -4,7 +4,18 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // Define associations here if needed
+      User.hasOne(models.Auth, {
+        foreignKey: "userId",
+      });
+
+      User.hasMany(models.Library, {
+        foreignKey: "userId",
+      });
+
+      User.belongsTo(models.Library, {
+        foreignKey: "libraryId",
+        allowNull: false,
+      });
     }
   }
 
@@ -19,8 +30,16 @@ module.exports = (sequelize, DataTypes) => {
       city: DataTypes.STRING,
       address: DataTypes.STRING,
       phone: DataTypes.STRING,
-      profileImage: DataTypes.TEXT,
-      role: DataTypes.STRING,
+      profileImage: {
+        type: DataTypes.TEXT,
+        defaultValue:
+          "https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
+      },
+      role: {
+        type: DataTypes.ENUM(["Admin", "Manager", "Staff"]),
+        defaultValue: "Staff",
+      },
+      libraryId: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },

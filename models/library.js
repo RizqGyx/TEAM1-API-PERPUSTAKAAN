@@ -3,9 +3,14 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Library extends Model {
     static associate(models) {
-      Library.hasMany(models.Book, {
+      Library.hasMany(models.User, {
         foreignKey: "libraryId",
       });
+
+      Library.hasMany(models.Rack, {
+        foreignKey: "libraryId",
+      });
+
       Library.belongsTo(models.User, {
         foreignKey: "userId",
       });
