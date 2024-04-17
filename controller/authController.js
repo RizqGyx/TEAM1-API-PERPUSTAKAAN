@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Auth, User } = require("../models");
 const ApiError = require("../utils/apiError");
+const imagekit = require("../lib/imagekit");
 
 const registerStaff = async (req, res, next) => {
   try {
@@ -65,7 +66,24 @@ const registerStaff = async (req, res, next) => {
 
 const createAdmin = async (req, res, next) => {
   try {
-    const { name, email, password, confirmPassword, age, address, role } = req.body;
+    const { name, email, password, confirmPassword, age, address, role, phoneNum} = req.body;
+    const files = req.files;
+    let images = [];
+
+    if (files) {
+      await Promise.all(
+        files.map(async (file) => {
+          const split = file.originalname.split(".");
+          const extension = split[split.length - 1];
+
+          const uploadedImage = await imagekit.upload({
+            file: file.buffer,
+            fileName: `IMG-${Date.now()}.${extension}`,
+          });
+          images.push(uploadedImage.url);
+        })
+      );
+    }
 
     // Validasi untuk check apakah email sudah ada
     const user = await Auth.findOne({ where: { email } });
@@ -92,7 +110,9 @@ const createAdmin = async (req, res, next) => {
       name,
       age,
       address,
-      role, // Perhatikan penggunaan "admin" dengan huruf kecil
+      role,
+      phoneNum, 
+      imgUrl: images,// Ambil URL gambar pertama atau null jika tidak ada gambar
     });
 
     // Membuat entri autentikasi untuk pengguna baru
@@ -100,7 +120,8 @@ const createAdmin = async (req, res, next) => {
       email,
       password: hashedPassword,
       userId: newUser.id,
-      role, // Tambahkan properti role di sini
+      role, 
+      imgUrl: images, // Ambil URL gambar pertama atau null jika tidak ada gambar
     });
     
 
