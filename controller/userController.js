@@ -38,15 +38,31 @@ const findUserById = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
-  const { name, role, address, phoneNum, imgUrl } = req.body;
+  const { name, role, address, phoneNum} = req.body;
+  const files = req.files;
+  let images = [];
   try {
+    if (files) {
+      await Promise.all(
+        files.map(async (file) => {
+          const split = file.originalname.split(".");
+          const extension = split[split.length - 1];
+
+          const uploadedImage = await imagekit.upload({
+            file: file.buffer,
+            fileName: `IMG-${Date.now()}.${extension}`,
+          });
+          images.push(uploadedImage.url);
+        })
+      );
+    }
     await User.update(
       {
         name,
         role,
         address,
         phoneNum,
-        imgUrl,
+        imgUrl: images,
       },
       {
         where: {
