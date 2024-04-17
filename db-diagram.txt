@@ -22,14 +22,14 @@ Table Libraries {
   libraryName string
   city string
   address string
-  staffId integer [ref: > Staff.id]
+  userId integer [ref: > Users.id]
   createdAt timestamp
   updatedAt timestamp
 }
 
 Table Auth {
   id integer [pk]
-  memberId integer [ref: > Member.id]
+  userId integer [ref: > Users.id]
   password string
   confirmPassword string
   email string
@@ -37,12 +37,15 @@ Table Auth {
   updatedAt timestamp
 }
 
-Table Member {
+Table Users {
   id integer [pk]
   name string
   city string
   address string
   phone string
+  profileImage text
+  role string
+  libraryId integer [ref: > Libraries.id]
   createdAt timestamp
   updatedAt timestamp
 }
@@ -50,25 +53,11 @@ Table Member {
 Table Transactions {
   id integer [pk]
   bookId integer [ref: > Books.id]
-  memberId integer [ref: > Member.id]
-  staffId integer [ref: > Staff.id]
+  userId integer [ref: > Users.id]
   libraryId integer [ref: > Libraries.id]
   borrowDate date
   returnDate date
   status string
-  createdAt timestamp
-  updatedAt timestamp
-}
-
-Table Staff {
-  id integer [pk]
-  name string
-  city string
-  address string
-  phone string
-  email string
-  role string [note: "Owner, Admin, Staff"]
-  libraryId integer [ref: > Libraries.id]
   createdAt timestamp
   updatedAt timestamp
 }

@@ -1,26 +1,22 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Transactions extends Model {
+  class Transaction extends Model {
     static associate(models) {
-      Transactions.belongsTo(models.Book, {
+      Transaction.belongsTo(models.Book, {
         foreignKey: "bookId",
       });
 
-      Transactions.belongsTo(models.Member, {
-        foreignKey: "memberId",
+      Transaction.belongsTo(models.User, {
+        foreignKey: "userId",
       });
 
-      Transactions.belongsTo(models.Staff, {
-        foreignKey: "staffId",
-      });
-
-      Transactions.belongsTo(models.Library, {
+      Transaction.belongsTo(models.Library, {
         foreignKey: "libraryId",
       });
     }
   }
-  Transactions.init(
+  Transaction.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -29,8 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       bookId: DataTypes.INTEGER,
-      memberId: DataTypes.INTEGER,
-      staffId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       libraryId: DataTypes.INTEGER,
       borrowDate: DataTypes.DATE,
       returnDate: DataTypes.DATE,
@@ -38,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Transactions",
+      modelName: "Transaction",
     }
   );
-  return Transactions;
+  return Transaction;
 };

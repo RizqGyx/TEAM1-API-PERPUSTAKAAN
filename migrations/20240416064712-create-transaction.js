@@ -12,10 +12,7 @@ module.exports = {
       bookId: {
         type: Sequelize.INTEGER
       },
-      memberId: {
-        type: Sequelize.INTEGER
-      },
-      staffId: {
+      userId: {
         type: Sequelize.INTEGER
       },
       libraryId: {

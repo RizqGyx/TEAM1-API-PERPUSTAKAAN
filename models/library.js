@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
   class Library extends Model {
     static associate(models) {
       Library.hasMany(models.Book, {
-        foreignKey: "rackId",
+        foreignKey: "libraryId",
+      });
+      Library.belongsTo(models.User, {
+        foreignKey: "userId",
       });
     }
   }
@@ -19,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       libraryName: DataTypes.STRING,
       city: DataTypes.STRING,
       address: DataTypes.STRING,
-      staffId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
     },
     {
       sequelize,
