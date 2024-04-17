@@ -6,7 +6,7 @@ const checkId = async (req, res, next) => {
         const library = await Library.findByPk(req.params.id);
 
         if (!library) {
-            return next(new ApiError(`library gak ada`, 404));
+            return next(new ApiError(`library does not exist`, 404));
         }
 
         next();

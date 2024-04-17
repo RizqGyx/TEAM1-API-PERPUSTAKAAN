@@ -53,7 +53,7 @@ const updateLibrary = async (req, res, next) => {
 
         res.status(200).json({
             status: "Success",
-            message: "sukses update library",
+            message: "successful library update",
         });
     } catch (err) {
         next(new ApiError(err.message, 400));
@@ -69,7 +69,7 @@ const deleteLibrary = async (req, res, next) => {
         });
 
         if (!library) {
-            next(new ApiError("Library id tersebut gak ada", 404));
+            next(new ApiError("The library ID does not exist", 404));
         }
 
         await library.destroy({
@@ -80,7 +80,7 @@ const deleteLibrary = async (req, res, next) => {
 
         res.status(200).json({
             status: "Success",
-            message: "sukses delete library",
+            message: "successfully deleted library",
         });
     } catch (err) {
         next(new ApiError(err.message, 500));
