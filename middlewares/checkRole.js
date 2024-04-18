@@ -1,10 +1,16 @@
 const ApiError = require("../utils/apiError");
 
-const checkRole = (role) => {
+const checkRole = (roles) => {
   return async (req, res, next) => {
     try {
-      if (req.user.role !== role) {
-        next(new ApiError(`kamu bukan ${role} jadi tidak bisa akses`, 401));
+      if (!roles.includes(req.user.role)) {
+        const allowedRoles = roles.join(" or ");
+        next(
+          new ApiError(
+            `You are not authorized. Required role: ${allowedRoles}`,
+            401
+          )
+        );
       }
       next();
     } catch (err) {
