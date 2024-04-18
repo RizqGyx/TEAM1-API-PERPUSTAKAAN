@@ -76,7 +76,7 @@ const findUserById = async (req, res, next) => {
     const user = await User.findByPk(req.params.id);
 
     if (!user) {
-      next(new ApiError("User with this ID not found", 404));
+      return next(new ApiError("User with this ID not found", 404));
     }
 
     res.status(200).json({

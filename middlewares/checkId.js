@@ -1,12 +1,12 @@
 const ApiError = require("../utils/apiError");
-const { Shop } = require("../models");
+const { User } = require("../models");
 
 const checkId = async (req, res, next) => {
   try {
-    const shop = await Shop.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.id);
 
-    if (!shop) {
-      return next(new ApiError(`shop gak ada`, 404));
+    if (!user) {
+      return next(new ApiError("User not found", 404));
     }
 
     next();
