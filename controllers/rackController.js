@@ -3,11 +3,42 @@ const ApiError = require("../utils/apiError");
 
 const findRacks = async (req, res, next) => {
   try {
-    const racks = await Rack.findAll();
+    const { rackNumber, floorNumber, libraryId, page, limit } = req.query;
+
+    const pageNum = parseInt(page) || 1;
+    const pageSize = parseInt(limit) || 10;
+    const offset = (pageNum - 1) * pageSize;
+
+    const whereClause = {};
+    if (rackNumber) whereClause.rackNumber = rackNumber;
+    if (floorNumber) whereClause.floorNumber = floorNumber;
+    if (libraryId) whereClause.libraryId = libraryId;
+
+    if (req.query.search) {
+      whereClause[Op.or] = {
+        rackNumber: { [Op.like]: `%${req.query.search}%` },
+        floorNumber: { [Op.like]: `%${req.query.search}%` },
+        libraryId: { [Op.like]: `%${req.query.search}%` },
+      };
+    }
+
+    const { count, rows: racks } = await Rack.findAndCountAll({
+      where: whereClause,
+      offset,
+      limit: pageSize,
+    });
+
+    const totalPages = Math.ceil(count / pageSize);
 
     res.status(200).json({
       status: "Success",
       data: {
+        pagination: {
+          totalData: count,
+          totalPages,
+          pageNum,
+          pageSize,
+        },
         racks,
       },
     });
