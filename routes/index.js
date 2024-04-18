@@ -10,11 +10,13 @@ const Transaction = require("./transactionRouter");
 const Rack = require("./rackRouter");
 const Auth = require("./authRouter");
 const User = require("./userRouter");
+const Library = require("./libraryRouter");
 
 // router.use("/", Admin);
 router.use("/api/v1/transaction", Transaction);
 router.use("/api/v1/rack", Rack);
 router.use("/api/v1/auth", Auth);
 router.use("/api/v1/user", User);
+router.use("/api/v1/library", Library);
 
 module.exports = router;
