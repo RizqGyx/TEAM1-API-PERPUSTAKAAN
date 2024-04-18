@@ -7,7 +7,13 @@ const autentikasi = require("../middlewares/authenticate");
 const checkRole = require("../middlewares/checkRole");
 const checkId = require("../middlewares/checkId");
 
+
 router.get("/", autentikasi, checkRole("Admin", "Staff"), Users.findUsers);
+// router.get(
+//   "/:search", 
+//   autentikasi, 
+//   checkRole("Admin", "Staff"),
+//    Users.findUsersByFilter);
 router.get(
   "/:id",
   autentikasi,
