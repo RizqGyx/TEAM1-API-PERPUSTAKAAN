@@ -4,16 +4,30 @@ const ApiError = require("../utils/apiError");
 
 const findUsers = async (req, res, next) => {
   try {
-    const users = await User.findAll();
+    const { city, address } = req.query; 
+
+    let whereClause = {}; 
+
+  
+    if (city) {
+      whereClause.city = city;
+    }
+    if (address) {
+      whereClause.address = address;
+    }
+
+    // Lakukan pencarian pengguna dengan atau tanpa filter kota dan/atau alamat
+    const users = await User.findAll({
+      where: whereClause
+    });
 
     res.status(200).json({
       status: "Success",
-      data: {
-        users,
-      },
+      message: "Users retrieved successfully",
+      data: users
     });
   } catch (err) {
-    next(new ApiError(err.message, 400));
+    next(err);
   }
 };
 
@@ -35,6 +49,34 @@ const findUserById = async (req, res, next) => {
     next(new ApiError(err.message, 400));
   }
 };
+
+// const findUsersByFilter = async (req, res, next) => {
+//   try {
+//     const { city, address } = req.query; 
+
+//     let whereClause = {};
+
+//     if (city) {
+//       whereClause.city = city;
+//     }
+
+//     if (address) {
+//       whereClause.address = address;
+//     }
+
+//     const users = await User.findAll({
+//       where: whereClause 
+//     });
+
+//     res.status(200).json({
+//       status: "Success",
+//       message: "Users found by city",
+//       data: users
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
 const updateUser = async (req, res, next) => {
   const { name, city, address, phone, role, profileImage, libraryId } =
@@ -66,6 +108,8 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+
+
 const deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -92,6 +136,7 @@ const deleteUser = async (req, res, next) => {
 module.exports = {
   findUsers,
   findUserById,
+  // findUsersByFilter,
   updateUser,
   deleteUser,
 };
