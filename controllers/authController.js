@@ -107,7 +107,8 @@ const login = async (req, res, next) => {
       },
       include: ["User"],
     });
-
+    console.log(password)
+    console.log(user.password)
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign(
         {
