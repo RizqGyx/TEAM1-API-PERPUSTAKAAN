@@ -13,7 +13,8 @@ router.get(
   "/:search", 
   autentikasi, 
   checkRole("Manager","Admin", "Staff"),
-   Users.findUsersByFilter);
+   Users.findUsersByFilter
+);
 router.get(
   "/user/:id",
   autentikasi,
