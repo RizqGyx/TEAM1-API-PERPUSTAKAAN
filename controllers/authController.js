@@ -4,13 +4,30 @@ const imagekit = require("../lib/imagekit");
 const { Auth, User } = require("../models");
 const ApiError = require("../utils/apiError");
 
-const findAuth = async (req, res, next) => {
+const findAuths = async (req, res, next) => {
   try {
-    const auths = await Auth.findAll();
+    const { page, limit } = req.query;
+
+    const pageNum = parseInt(page) || 1;
+    const pageSize = parseInt(limit) || 10;
+    const offset = (pageNum - 1) * pageSize;
+
+    const { count, rows: auths } = await Auth.findAndCountAll({
+      offset,
+      limit: pageSize,
+    });
+
+    const totalPages = Math.ceil(count / pageSize);
 
     res.status(200).json({
       status: "Success",
       data: {
+        pagination: {
+          totalData: count,
+          totalPages,
+          pageNum,
+          pageSize,
+        },
         auths,
       },
     });
@@ -112,7 +129,7 @@ const login = async (req, res, next) => {
         data: token,
       });
     } else {
-      next(new ApiError("wrong password atau user doesn't exist", 400));
+      next(new ApiError("wrong password or user doesn't exist", 400));
     }
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -136,5 +153,5 @@ module.exports = {
   register,
   login,
   authenticate,
-  findAuth,
+  findAuths,
 };

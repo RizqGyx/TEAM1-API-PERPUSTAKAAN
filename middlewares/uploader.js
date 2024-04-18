@@ -9,7 +9,7 @@ const multerFiltering = (req, file, cb) => {
   ) {
     cb(null, true);
   } else {
-    return cb(new ApiError("Format Image nya salah", 400));
+    return cb(new ApiError("Only Accept Image Type .png .jpg and .jpeg", 400));
   }
 };
 
