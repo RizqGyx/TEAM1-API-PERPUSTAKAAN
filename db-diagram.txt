@@ -27,11 +27,10 @@ Table Libraries {
   updatedAt timestamp
 }
 
-Table Auth {
+Table Auths {
   id integer [pk]
   userId integer [ref: > Users.id]
   password string
-  confirmPassword string
   email string
   createdAt timestamp
   updatedAt timestamp
@@ -45,6 +44,7 @@ Table Users {
   phone string
   profileImage text
   role string
+  libraryId integer
   createdAt timestamp
   updatedAt timestamp
 }

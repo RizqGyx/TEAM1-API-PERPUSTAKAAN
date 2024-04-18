@@ -4,7 +4,7 @@ const imagekit = require("../lib/imagekit");
 const { Auth, User } = require("../models");
 const ApiError = require("../utils/apiError");
 
-const findAuth = async (req, res, next) => {
+const findAuths = async (req, res, next) => {
   try {
     const { page, limit } = req.query;
 
@@ -129,7 +129,7 @@ const login = async (req, res, next) => {
         data: token,
       });
     } else {
-      next(new ApiError("wrong password atau user doesn't exist", 400));
+      next(new ApiError("wrong password or user doesn't exist", 400));
     }
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -153,5 +153,5 @@ module.exports = {
   register,
   login,
   authenticate,
-  findAuth,
+  findAuths,
 };
