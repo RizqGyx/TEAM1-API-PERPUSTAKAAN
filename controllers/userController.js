@@ -76,7 +76,7 @@ const findUserById = async (req, res, next) => {
     const user = await User.findByPk(req.params.id);
 
     if (!user) {
-      return next(new ApiError("User with this ID not found", 404));
+      return next(new ApiError(`User with ID: ${req.params.id} not found`, 404));
     }
 
     res.status(200).json({
@@ -95,6 +95,12 @@ const updateUser = async (req, res, next) => {
   const { name, city, address, phone, role, profileImage, libraryId } =
     req.body;
   try {
+    const user = await User.findByPk(req.params.id);
+
+    if (!user) {
+      return next(new ApiError(`User with ID ${req.params.id} not found`, 404));
+    }
+
     await User.update(
       {
         name,
@@ -128,7 +134,7 @@ const deleteUser = async (req, res, next) => {
     const user = await User.findByPk(req.params.id);
 
     if (!user) {
-      next(new ApiError("User with this ID not found", 404));
+      next(new ApiError(`User with ID ${req.params.id} not found`, 404));
     }
 
     await User.destroy({
