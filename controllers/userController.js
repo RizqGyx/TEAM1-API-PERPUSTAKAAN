@@ -38,29 +38,42 @@ const findUserById = async (req, res, next) => {
 
 const findUsersByFilter = async (req, res, next) => {
   try {
-    const { city, address } = req.query; 
-
-    let whereClause = {};
+    let filters = {};
+    const { city, address, name, role} = req.query;
 
     if (city) {
-      whereClause.city = city;
+      filters.city = city;
     }
-
     if (address) {
-      whereClause.address = address;
+      filters.address = address;
+    }
+    if (name) {
+      filters.name = name;
+    }
+    if (role) {
+      filters.role = role;
     }
 
-    const users = await User.findAll({
-      where: whereClause 
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+
+    const users = await User.findAndCountAll({
+      where: filters,
+      offset,
+      limit,
     });
 
     res.status(200).json({
       status: "Success",
-      message: "Users found by city",
-      data: users
+      data: {
+        users: users.rows,
+        totalItems: users.count,
+        totalPages: Math.ceil(users.count / limit),
+        currentPage: page,
+      },
     });
   } catch (err) {
-    next(err);
+    next(new ApiError(err.message, 400));
   }
 };
 
