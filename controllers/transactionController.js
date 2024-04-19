@@ -8,10 +8,14 @@ const createTransaction = async (req, res, next) => {
     const returnDate = new Date(currentDate);
     returnDate.setDate(returnDate.getDate() + 3);
 
+    const capitalized =
+      req.query.status.charAt(0).toUpperCase() + req.query.status.slice(1);
+
     const transaction = await Transaction.create({
       ...req.body,
       borrowDate: currentDate,
       returnDate: returnDate,
+      status: capitalized,
     });
 
     res.status(201).json({

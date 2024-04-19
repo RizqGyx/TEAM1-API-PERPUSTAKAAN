@@ -1,6 +1,6 @@
 const ApiError = require("../utils/apiError");
 
-const checkRole = (...roles) => {
+const checkRole = (roles) => {
   return async (req, res, next) => {
     try {
       if (!roles.includes(req.user.role)) {

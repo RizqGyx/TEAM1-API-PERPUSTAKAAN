@@ -86,7 +86,7 @@ const updateRack = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "Rack updated successful",
+      message: "Rack updated Successful",
       updatedRack,
     });
   } catch (err) {
