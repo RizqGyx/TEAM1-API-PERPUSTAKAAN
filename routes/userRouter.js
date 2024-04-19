@@ -7,18 +7,25 @@ const autentikasi = require("../middlewares/authenticate");
 const checkRole = require("../middlewares/checkRole");
 const checkId = require("../middlewares/checkId");
 
-router.get("/", autentikasi, checkRole("Admin", "Staff"), Users.findUsers);
+
+router.get("/", autentikasi, checkRole("Manager","Admin", "Staff"), Users.findUsers);
 router.get(
-  "/:id",
+  "/:search", 
+  autentikasi, 
+  checkRole("Manager","Admin", "Staff"),
+   Users.findUsersByFilter
+);
+router.get(
+  "/user/:id",
   autentikasi,
-  checkRole("Admin", "Staff"),
+  checkRole("Manager","Admin", "Staff"),
   Users.findUserById
 );
 router.patch("/edit/:id", autentikasi, Users.updateUser);
 router.delete(
   "/delete/:id",
   autentikasi,
-  checkRole("Admin", "Staff"),
+  checkRole("Manager","Admin", "Staff"),
   Users.deleteUser
 );
 

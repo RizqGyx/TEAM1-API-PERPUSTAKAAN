@@ -12,6 +12,7 @@ const checkRole = (roles) => {
           )
         );
       }
+      // Lanjutkan jika peran pengguna sesuai dengan salah satu dari peran yang diizinkan
       next();
     } catch (err) {
       next(new ApiError(err.message, 500));
