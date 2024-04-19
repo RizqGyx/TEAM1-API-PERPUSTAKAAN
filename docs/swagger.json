@@ -1,0 +1,876 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mini Challange Chapter 5 Kelompok 1 [API-Perpustakaan]",
+    "description": "ini challenge kami",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "ini adalah API untuk Authorization resources"
+    },
+    {
+      "name": "Users",
+      "description": "ini API untuk USERS resources"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auths"],
+        "summary": "Return hasil hit API login user",
+        "description": "ini API utk login user",
+        "requestBody": {
+          "description": "ini request body utk sukses login user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "tegaribra@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "diriku"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal User login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api register",
+        "description": "ini API utk register ",
+        "requestBody": {
+          "description": "ini request body utk sukses register ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "masukannamamu"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "passwordmu"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "emailmu"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "passwordmu"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 24
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "kotamu"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "11111100000"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "Manager"
+                  },
+
+                  "address": {
+                    "type": "string",
+                    "example": "alaamtmu"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "masukannamamu"
+                        },
+                        "age": {
+                          "type": "integer",
+                          "example": "24"
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "alaamtmu"
+                        },
+                        "city": {
+                          "type": "string",
+                          "example": "kotamu"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "11111100000"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "rolemu"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "emailmu"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Member register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User email already taken"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["Auth"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api Verify User untuk semua role",
+        "description": "ini adalah API untuk mengambil informasi user",
+        "responses": {
+          "200": {
+            "description": "Sukses verify User, berhasil mendapatkan informasi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Aku"
+                            },
+                            "age": {
+                              "type": "integer",
+                              "example": 23
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Korea"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "superadmin"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "aku@mail.com"
+                            },
+                            "password": {
+                              "type": "string",
+                              "example": "$gahsg$$$GASJB$YUAghjasyd$$gHS$"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Gagal Verifikasi User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "invalid token"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api get all users data",
+        "description": "ini API untuk menampilkan data dari semua user yang ada,  manager,admin.staff saja yang memiliki akses",
+        "responses": {
+          "200": {
+            "description": "Sukses menampilkan data user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user1": {
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 2
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "tegar"
+                            },
+                            "age": {
+                              "type": "integer",
+                              "example": "24"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Indonesia"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "Manager"
+                            }
+                          }
+                        },
+                        "user2": {
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 3
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "dimas"
+                            },
+                            "age": {
+                              "type": "integer",
+                              "example": "21"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Semarang"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "Admin"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Gagal menampilkan data (unauthorized)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "token nya gak ada"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Gagal menampilkan data (bukan dari role yang diizinkan)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/findbysearch": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Mencari pengguna berdasarkan filter",
+        "description": "API untuk mencari pengguna berdasarkan filter yang diberikan",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "city",
+            "description": "Nama kota pengguna",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "address",
+            "description": "Alamat pengguna",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Nama pengguna",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "description": "Peran pengguna",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "Nomor halaman",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Batas jumlah item per halaman",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pengguna ditemukan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "John Doe"
+                              },
+                              "city": {
+                                "type": "string",
+                                "example": "New York"
+                              },
+                              "address": {
+                                "type": "string",
+                                "example": "123 Main Street"
+                              },
+                              "role": {
+                                "type": "string",
+                                "example": "Admin"
+                              }
+                            }
+                          }
+                        },
+                        "totalItems": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "currentPage": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal mencari pengguna",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error message here"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },    
+    "/user/user/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api  get user by id ",
+        "description": "ini API untuk menampilkan satu data user berdasarkan id, hanya manager,admin,staff yang memiliki akses",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID user yang akan ditampilkan.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sukses menampilkan data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "hinata"
+                        },
+                        "age": {
+                          "type": "integer",
+                          "example": 24
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "Jepang"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "superadmin"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Gagal menampilkan data (unauthorized)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "token nya gak ada / data dengan id 9 tidak ada"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Gagal menampilkan data (bukan superadmin/admin)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "kamu bukan role yang diizinkan  jadi tidak bisa akses"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/edit/{id}": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api patch data user",
+        "description": "ini adalah API untuk memperbarui informasi user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID user yang akan diubah.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "ini request body untuk edit data user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "hinata"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses memperbarui data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "sukses update user "
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Gagal memperbarui data (unauthorized)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "token nya gak ada / data dengan id 9 tidak ada"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/delete/{id}": {
+      "delete": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api patch data user (hanya superadmin dan admin)",
+        "description": "ini adalah API untuk  menghapus data user berdasarkan id, hanya superadmin dan admin yang bisa mengakses",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID user yang akan dihapus.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses memnghapus data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "sukses delete user "
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Gagal memperbarui data (unauthorized)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "token nya gak ada / data dengan id 9 tidak ada"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Gagal menghapus data (bukan role yang izinkna)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "kamu bukan role yang di jadi tidak bisa akses"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
