@@ -52,9 +52,11 @@ const filterBooks = async (req, res, next) => {
             offset: page * limit,
             limit: limit,
           });
+        
+        if(count == 0) return next(new apiError("Book Not Found", 404))
       
         const totalPages = Math.ceil(count / limit);    
-        res.status(200).json({
+        res.status(201).json({
             message: "Success",
             data: {
                 TotalData: count,
@@ -126,7 +128,7 @@ const createNewBooks = async (req, res, next) => {
             rackId
         })
 
-        res.status(200).json({
+        res.status(201).json({
             status: "success",
             book: newBook
         })
@@ -193,7 +195,7 @@ const findBooksById = async (req, res, next) => {
         });
         console.log(book.rackId)
 
-        res.status(200).json({
+        res.status(201).json({
             status: "Success",
             data: {
                 books: book,

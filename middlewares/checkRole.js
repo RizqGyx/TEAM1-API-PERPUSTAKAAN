@@ -8,7 +8,7 @@ const checkRole = (roles) => {
         next(
           new ApiError(
             `You are not authorized. Required role: ${allowedRoles}`,
-            401
+            403
           )
         );
       }

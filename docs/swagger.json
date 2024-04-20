@@ -42,6 +42,9 @@
   "servers": [
     {
       "url": "http://localhost:3000/api/v1"
+    },
+    {
+      "url": "http://localhost:8000/api/v1"
     }
   ],
   "paths": {
@@ -1223,6 +1226,647 @@
                           "example": "User dengan id: 6 tidak ada"
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Get book by id",
+        "description": "Use this API to GET book data by id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            },
+            "description": "Book ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success getting book data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                  "books": {
+                          "id": 2,
+                          "title": "To Kill a Mockingbird",
+                          "genre": "Fiction",
+                          "author": "Harper Lee",
+                          "language": "English",
+                          "publicationYear": 1960,
+                          "publisher": "J. B. Lippincott & Co.",
+                          "imageCover": "http://via.placeholder.com/600x400",
+                          "numOfBooks": 8,
+                          "numBorrowed": 1,
+                          "rackId": 2,
+                          "createdAt": "2023-06-29T07:30:00.000Z",
+                          "updatedAt": "2023-06-29T07:30:00.000Z",
+                          "Rack": {
+                              "id": 2,
+                              "rackNumber": 2,
+                              "floorNumber": 1,
+                              "libraryId": 2,
+                              "createdAt": "2023-06-03T09:00:00.000Z",
+                              "updatedAt": "2023-06-03T09:00:00.000Z"
+                          }
+
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                  "message": {
+                          "type": "string",
+                          "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id" ,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Book not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Edit book data",
+        "description": "Use this API to edit or update books data ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 3
+            },
+            "description": "User ID"
+          }
+        ],
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Servant of Evil"
+                  },
+                  "genre": {
+                    "type": "string",
+                    "example": "Fiction"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses mengedit data user berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 3,
+                        "title": "Servant of Evil",
+                        "genre": "Fiction",
+                        "author": "George Orwell",
+                        "language": "English",
+                        "publicationYear": 1949,
+                        "publisher": "Secker & Warburg",
+                        "imageCover": "http://via.placeholder.com/600x400",
+                        "numOfBooks": 6,
+                        "numBorrowed": 0,
+                        "rackId": 3,
+                        "createdAt": "2023-06-30T10:45:00.000Z",
+                        "updatedAt": "2024-04-20T19:54:03.297Z",
+                        "Rack": {
+                          "id": 3,
+                          "rackNumber": 3,
+                          "floorNumber": 2,
+                          "libraryId": 3,
+                          "createdAt": "2023-06-04T09:00:00.000Z",
+                          "updatedAt": "2023-06-04T09:00:00.000Z"
+                        } 
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                      "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                      "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Delete book data",
+        "description": "Use this API to delete books ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 3
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success deleting book data",
+            "content": {
+              "application/json":{
+                "schema":{
+                "type": "object",
+                "properties": {
+                  "status":{
+                    "type": "string",
+                    "example": "Success"
+                  },
+                  "message":{
+                    "type":"string",
+                    "example": "Book has been deleted"
+                  }
+                }
+              }
+              }
+            }
+            
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                      "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                      "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "/book/": {
+      "get": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return book data that has been filtered",
+        "description": "Use this API to do filtering",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "search=The Great Gatsby"
+            },
+            "description": "Seach param"
+          },
+          {
+            "name": "genre",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "genre=fiction"
+            },
+            "description": "shortby genre"
+          },
+          {
+            "name": "author",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "author=scott    "
+            },
+            "description": "shortby author"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success to get book data based on filter param",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "book": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "title": "The Great Gatsby",
+                        "genre": "Fiction",
+                        "author": "F. Scott Fitzgerald",
+                        "language": "English",
+                        "publicationYear": 1925,
+                        "publisher": "Scribner",
+                        "imageCover": "http://via.placeholder.com/600x400",
+                        "numOfBooks": 10,
+                        "numBorrowed": 2,
+                        "rackId": 1,
+                        "createdAt": "2023-06-28T09:25:00.000Z",
+                        "updatedAt": "2023-06-28T09:25:00.000Z"
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "TotalData": 1,
+                        "totalPages": 1,
+                        "limit": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                  "message": {
+                          "type": "string",
+                          "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                  "message": {
+                          "type": "string",
+                          "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Create new book data",
+        "description": "ini API utk register member",
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "arknight"
+                  },
+                  "author": {
+                    "type": "string",
+                    "example": "jhon doe"
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "example": "Yostar"
+                  },
+                  "publicationYear": {
+                    "type": "integer",
+                    "example": 2020
+                  },
+                  "genre": {
+                    "type": "integer",
+                    "example": "action"
+                  },
+                  "numOfBooks": {
+                    "type": "string",
+                    "example": "3"
+                  },
+                  "numBorrowed": {
+                    "type": "string",
+                    "example": "0"
+                  },
+                  "rackId": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "language": {
+                    "type": "string",
+                    "example": "English"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success adding new book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "book": {
+                      "type": "object",
+                      "example": {
+                        "imageCover": "https://dailymockup.com/wp-content/uploads/edd/2019/04/free-book-cover-mockup-psd.jpg",
+                        "id": 11,
+                        "title": "arknight",
+                        "genre": "action",
+                        "author": "jhon doe",
+                        "language": "English",
+                        "publicationYear": 2020,
+                        "publisher": "Yostar",
+                        "numOfBooks": 3,
+                        "numBorrowed": 0,
+                        "rackId": 1,
+                        "updatedAt": "2024-04-20T18:33:03.010Z",
+                        "createdAt": "2024-04-20T18:33:03.010Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is a field with null value  ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                      "message": {
+                        "type": "string",
+                        "example": "Input cant be null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                      "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                      "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
                     }
                   }
                 }
