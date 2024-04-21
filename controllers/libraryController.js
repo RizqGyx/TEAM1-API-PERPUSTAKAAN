@@ -105,7 +105,7 @@ const deleteLibrary = async (req, res, next) => {
 
         res.status(200).json({
             status: "Success",
-            message: "successfully deleted library",
+            message: "Successfully deleted library",
         });
     } catch (err) {
         next(new ApiError(err.message, 500));
@@ -124,7 +124,7 @@ const createLibrary = async (req, res, next) => {
         });
 
         res.status(201).json({
-            status: "success",
+            status: "Success",
             data: {
                 library,
             },

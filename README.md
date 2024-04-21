@@ -98,4 +98,8 @@ http://localhost:3000
 | TEAM1-API-PERPUSTAKAAN                |
 | [GOLD🥇] Chapter 5 - API-Perpustakaan |
 
+## Api Postman
+
+[API POSTMAN](https://documenter.getpostman.com/view/29668082/2sA3Bn7Cp8#f0dfdce1-124e-40af-a282-9553de4af84a)
+
 # TEAM1-API-PERPUSTAKAAN

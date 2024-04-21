@@ -30,8 +30,9 @@ module.exports = {
         allowNull: false,
       },
       role: {
-        type: Sequelize.ENUM(["Manager", "Admin", "Staff"]),
+        type: Sequelize.ENUM(["Guest","Manager", "Admin", "Staff"]),
         allowNull: false,
+        defaultValue: "Guest",
       },
       libraryId: {
         type: Sequelize.INTEGER,

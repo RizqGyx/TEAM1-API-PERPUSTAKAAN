@@ -3,7 +3,6 @@ const router = require("express").Router();
 const Racks = require("../controllers/rackController");
 const autentikasi = require("../middlewares/authenticate");
 const checkRole = require("../middlewares/checkRole");
-const checkId = require("../middlewares/checkId");
 
 router.get("/", autentikasi, checkRole("Admin", "Staff"), Racks.findRacks);
 router.get(

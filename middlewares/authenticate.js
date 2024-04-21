@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
     try {
       payload = jwt.verify(token, process.env.JWT_SECRET);
     } catch (innerErr) {
-      next(new ApiError("token tidak valid", 401));
+      next(new ApiError("token unvalid", 401));
     }
 
     const user = await User.findByPk(payload.id, {
