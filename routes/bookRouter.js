@@ -9,28 +9,28 @@ router.get("/:id",
     authenticate, 
     books.findBooksById
 );
+
 // Search and filter
 router.get("/", 
     authenticate, 
     books.filterBooks
 );
+
 // create data
 router.post("/", 
     authenticate,
     upload.array("images"), 
-    checkRole(["Staff", "Admin"]), 
     books.createNewBooks
 );
+
 // delete data
 router.delete("/:id",
     authenticate, 
-    checkRole(["Staff", "Admin"]), 
     books.deleteBookById
 );
 // edit data
 router.put("/:id", 
-    authenticate, 
-    checkRole(["Staff", "Admin"]), 
+    authenticate,
     upload.array("images"),
     books.updateBookData
 );
