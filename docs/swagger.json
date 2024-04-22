@@ -42,9 +42,6 @@
   "servers": [
     {
       "url": "http://localhost:3000/api/v1"
-    },
-    {
-      "url": "http://localhost:8000/api/v1"
     }
   ],
   "paths": {
@@ -1235,6 +1232,544 @@
         }
       }
     },
+    "/transaction": {
+      "get": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return Hasil Hit API Get All Transactions",
+        "description": "ini API untuk mendapatkan semua data transaction",
+        "responses": {
+          "201": {
+            "description": "Sukses mengambil semua data transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": [
+                          {
+                            "id": 1,
+                            "bookId": 1,
+                            "userId": 1,
+                            "libraryId": 1,
+                            "borrowDate": "2023-06-28T00:00:00.000Z",
+                            "returnDate": "2023-07-05T00:00:00.000Z",
+                            "status": "Requested",
+                            "createdAt": "2023-06-28T09:25:00.000Z",
+                            "updatedAt": "2023-06-28T09:25:00.000Z"
+                          },
+                          {
+                            "id": 2,
+                            "bookId": 2,
+                            "userId": 2,
+                            "libraryId": 1,
+                            "borrowDate": "2023-06-29T00:00:00.000Z",
+                            "returnDate": "2023-07-06T00:00:00.000Z",
+                            "status": "Approved",
+                            "createdAt": "2023-06-29T07:30:00.000Z",
+                            "updatedAt": "2023-06-29T07:30:00.000Z"
+                          },
+                          {
+                            "id": 3,
+                            "bookId": 3,
+                            "userId": 3,
+                            "libraryId": 2,
+                            "borrowDate": "2023-06-30T00:00:00.000Z",
+                            "returnDate": "2023-07-07T00:00:00.000Z",
+                            "status": "Cancelled",
+                            "createdAt": "2023-06-30T10:45:00.000Z",
+                            "updatedAt": "2023-06-30T10:45:00.000Z"
+                          },
+                          {
+                            "id": 4,
+                            "bookId": 4,
+                            "userId": 4,
+                            "libraryId": 2,
+                            "borrowDate": "2023-07-01T00:00:00.000Z",
+                            "returnDate": "2023-07-08T00:00:00.000Z",
+                            "status": "Borrowed",
+                            "createdAt": "2023-07-01T08:15:00.000Z",
+                            "updatedAt": "2023-07-01T08:15:00.000Z"
+                          },
+                          {
+                            "id": 5,
+                            "bookId": 5,
+                            "userId": 5,
+                            "libraryId": 3,
+                            "borrowDate": "2023-07-02T00:00:00.000Z",
+                            "returnDate": "2023-07-09T00:00:00.000Z",
+                            "status": "Returned",
+                            "createdAt": "2023-07-02T11:00:00.000Z",
+                            "updatedAt": "2023-07-02T11:00:00.000Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/{id}": {
+      "get": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return Hasil Hit API Get Transaction By ID",
+        "description": "ini API untuk mendapatkan data transaction berdasarkan id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sukses mendapatkan data transaction berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "transaction": {
+                          "id": 1,
+                          "bookId": 1,
+                          "userId": 1,
+                          "libraryId": 1,
+                          "borrowDate": "2023-06-28T00:00:00.000Z",
+                          "returnDate": "2023-07-05T00:00:00.000Z",
+                          "status": "Requested",
+                          "createdAt": "2023-06-28T09:25:00.000Z",
+                          "updatedAt": "2023-06-28T09:25:00.000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Transaction dengan id: 1 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/edit/{id}": {
+      "patch": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API edit transaction by id",
+        "description": "ini API untuk mengedit data transacton berdasarkan id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "requestBody": {
+          "description": "ini request body untuk edit transaction",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bookId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "userId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "libraryId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "Approved"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses mengedit data transaction berdasarkan id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "bookId": 1,
+                        "userId": 1,
+                        "libraryId": 1,
+                        "borrowDate": "2023-06-28T00:00:00.000Z",
+                        "returnDate": "2023-07-05T00:00:00.000Z",
+                        "status": "Approved",
+                        "createdAt": "2023-06-28T09:25:00.000Z",
+                        "updatedAt": "2024-04-19T04:26:00.828Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Transaction dengan id: 1 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/delete/{id}": {
+      "delete": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit API delete transaction by id",
+        "description": "ini API untuk menghapus data transaction berdasarkan id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Sukses menghapus data transaction berdasarkan id"
+          },
+          "401": {
+            "description": "Token tidak valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Transaction dengan id: 1 tidak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/book/{id}": {
       "get": {
         "tags": ["Books"],
@@ -1291,7 +1826,7 @@
                               "createdAt": "2023-06-03T09:00:00.000Z",
                               "updatedAt": "2023-06-03T09:00:00.000Z"
                           }
-
+    
                     }
                   }
                 }
