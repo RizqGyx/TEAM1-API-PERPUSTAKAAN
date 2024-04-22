@@ -113,9 +113,25 @@ const findTransactionById = async (req, res, next) => {
 const updateTransaction = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const [updatedRowsCount] = await Transaction.update(req.body, {
-      where: { id },
-    });
+    const { borrowDate, returnDate, status, ...updateData } = req.body;
+
+    const capitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
+
+    if (borrowDate !== undefined || returnDate !== undefined) {
+      throw new ApiError("Borrow date and return date cannot be modified", 400);
+    }
+
+    const [updatedRowsCount] = await Transaction.update(
+      {
+        ...updateData,
+        status: capitalizedStatus,
+      },
+      {
+        where: { id },
+        fields: ["bookId", "memberId", "staffId", "libraryId", "status"],
+      }
+    );
+
     if (updatedRowsCount === 0) {
       throw new ApiError("Transaction not found", 404);
     }
