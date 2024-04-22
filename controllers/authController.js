@@ -69,11 +69,29 @@ const register = async (req, res, next) => {
         new ApiError("Admin must input libraryId in the request body", 400)
       );
     }
+    
+    const files = req.files
+    let image
+    if(files){
+        await Promise.all(
+            files.map(async (file) => {
+                const split = file.originalname.split(".");
+                const extension = split[split.length - 1];
+
+                const uploadImg = await imagekit.upload({
+                    file: file.buffer,
+                    fileName: `file_${crypto.randomUUID()}.${extension}`
+                })
+                image = uploadImg.url
+            })
+        )
+    }
 
     const newUser = await User.create({
       name,
       address,
       city,
+      profileImage: image,
       phone,
       libraryId,
       role,

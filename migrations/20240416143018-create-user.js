@@ -28,6 +28,7 @@ module.exports = {
       profileImage: {
         type: Sequelize.TEXT,
         allowNull: false,
+        defaultValue: "http://via.placeholder.com/200x300"
       },
       role: {
         type: Sequelize.ENUM(["Guest","Manager", "Admin", "Staff"]),
