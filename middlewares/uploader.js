@@ -5,11 +5,12 @@ const multerFiltering = (req, file, cb) => {
   if (
     file.mimetype == "image/png" ||
     file.mimetype == "image/jpg" ||
-    file.mimetype == "image/jpeg"
+    file.mimetype == "image/jpeg" ||
+    file.mimetype == "image/webp"
   ) {
     cb(null, true);
   } else {
-    return cb(new ApiError("Format Image nya salah", 400));
+    return cb(new ApiError("Only Accept Image Type .png .jpg and .jpeg", 400));
   }
 };
 

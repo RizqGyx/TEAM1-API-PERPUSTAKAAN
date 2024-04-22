@@ -12,12 +12,20 @@ module.exports = async (req, res, next) => {
 
     const token = bearerToken.split("Bearer ")[1];
 
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    let payload;
+
+    try {
+      payload = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (innerErr) {
+      next(new ApiError("token unvalid", 401));
+    }
+
     const user = await User.findByPk(payload.id, {
       include: ["Auth"],
     });
 
     req.user = user;
+    req.payload = payload;
     next();
   } catch (err) {
     if (err.message === "jwt expired") {
