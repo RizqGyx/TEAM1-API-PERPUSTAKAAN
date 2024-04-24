@@ -10,7 +10,9 @@ const multerFiltering = (req, file, cb) => {
   ) {
     cb(null, true);
   } else {
-    return cb(new ApiError("Only Accept Image Type .png .jpg and .jpeg", 400));
+    return cb(
+      new ApiError("Only Accept Image Type .png .jpg .webp and .jpeg", 400)
+    );
   }
 };
 

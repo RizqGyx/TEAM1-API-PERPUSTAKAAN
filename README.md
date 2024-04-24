@@ -184,6 +184,6 @@ http://localhost:3000
 
 ## Api Postman
 
-[API POSTMAN](https://documenter.getpostman.com/view/29668082/2sA3Bn7Cp8#f0dfdce1-124e-40af-a282-9553de4af84a)
+[API POSTMAN](https://documenter.getpostman.com/view/29668082/2sA3Bn7Cp8)
 
 # TEAM1-API-PERPUSTAKAAN

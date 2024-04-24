@@ -13,14 +13,14 @@ router.post(
   authenticate,
   checkOwnership,
   checkDateFields,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.createTransaction
 );
 router.get(
   "/:id",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner"]),
   Transaction.findTransactionById
 );
 router.patch(
@@ -28,14 +28,14 @@ router.patch(
   authenticate,
   checkOwnership,
   checkDateFields,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.updateTransaction
 );
 router.delete(
   "/delete/:id",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.deleteTransaction
 );
 
