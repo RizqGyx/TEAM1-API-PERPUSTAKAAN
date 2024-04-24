@@ -17,12 +17,16 @@ module.exports = async (req, res, next) => {
     try {
       payload = jwt.verify(token, process.env.JWT_SECRET);
     } catch (innerErr) {
-      next(new ApiError("token unvalid", 401));
+      return next(new ApiError("token unvalid", 401));
     }
 
     const user = await User.findByPk(payload.id, {
       include: ["Auth"],
     });
+
+    if (!user) {
+      return next(new ApiError("User not found", 404));
+    }
 
     req.user = user;
     req.payload = payload;

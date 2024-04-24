@@ -5,36 +5,36 @@ const checkRole = require("../middlewares/checkRole");
 const upload = require("../middlewares/uploader");
 
 // Find by id
-router.get("/:id", 
-    authenticate, 
-    books.findBooksById
-);
+router.get("/:id", authenticate, books.findBooksById);
 
 // Search and filter
-router.get("/", 
-    authenticate, 
-    books.filterBooks
-);
+router.get("/", authenticate, books.filterBooks);
 
 // create data
-router.post("/", 
-    authenticate,
-    upload.array("images"), 
-    books.createNewBooks
+router.post(
+  "/",
+  authenticate,
+  upload.array("images"),
+  checkRole(["Admin", "Manager", "Owner"]),
+  books.createNewBooks
 );
 
 // delete data
-router.delete("/:id",
-    authenticate, 
-    books.deleteBookById
+router.delete(
+  "/:id",
+  authenticate,
+  checkRole(["Admin", "Manager", "Owner"]),
+  books.deleteBookById
 );
 // edit data
-router.put("/:id", 
-    authenticate,
-    upload.array("images"),
-    books.updateBookData
+router.put(
+  "/:id",
+  authenticate,
+  upload.array("images"),
+  checkRole(["Admin", "Manager", "Owner"]),
+  books.updateBookData
 );
 // dummy
-router.get("/find/books", books.findAll)
+router.get("/find/books", books.findAll);
 
-module.exports = router
+module.exports = router;

@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "team01-api-perpustakaan Express-rest API Swagger Documentation",
-    "description": "The swagger doc for example perpustakaan api",
+    "description": "Development For Challange Binar Chapter 5 FSW1 Team1 Fullstack Dashboard for a library designed to manage library data and a library website utilizing, Express.js as the backend and Postgress as the Database Management System (DBMS). Github: [TEAM1-API-PERPUSTAKAAN](https://github.com/RizqGyx/TEAM1-API-PERPUSTAKAAN)",
     "version": "1.0.0",
     "license": {
       "name": "ISC",
@@ -342,7 +342,7 @@
         }
       }
     },
-    "/users/{id}": {
+    "/users": {
       "get": {
         "tags": ["Users"],
         "security": [
@@ -481,55 +481,31 @@
         }
       }
     },
-    "/users/edit": {
-      "patch": {
+    "/users/{id}": {
+      "get": {
         "tags": ["Users"],
         "security": [
           {
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API edit user by login",
-        "description": "ini API untuk mengedit data user dengan login",
-        "requestBody": {
-          "description": "ini request body untuk edit user",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "jose"
-                  },
-                  "address": {
-                    "type": "string",
-                    "example": "jakarta"
-                  },
-                  "age": {
-                    "type": "integer",
-                    "example": 24
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "jose@gmail.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "josee123"
-                  },
-                  "confirmPassword": {
-                    "type": "string",
-                    "example": "josee123"
-                  }
-                }
-              }
-            }
+        "summary": "Return hasil hit API get user by id",
+        "description": "ini API untuk mendapatkan data user berdasarkan id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User ID"
           }
-        },
+        ],
         "responses": {
           "201": {
-            "description": "Sukses mengedit data user dengan login",
+            "description": "Sukses mendapatkan data user berdasarkan id",
             "content": {
               "application/json": {
                 "schema": {
@@ -542,20 +518,22 @@
                     "data": {
                       "type": "object",
                       "example": {
-                        "id": 1,
-                        "name": "jose",
-                        "age": 24,
-                        "address": "Jakarta",
-                        "role": "Superadmin",
-                        "createdAt": "2023-10-22T07:53:51.986Z",
-                        "updatedAt": "2023-10-22T08:23:37.388Z",
-                        "Auth": {
+                        "users": {
                           "id": 1,
-                          "email": "jose@gmail.com",
-                          "password": "$2b$10$aR8/K7FhtNG6oW8gZfzM7OWvICjO98dEYqLhONTw2ZCwJogi49aIi",
-                          "userId": 1,
-                          "createdAt": "2023-10-22T07:53:51.996Z",
-                          "updatedAt": "2023-10-22T08:23:37.395Z"
+                          "name": "fadhlan",
+                          "age": 20,
+                          "address": "Bogor",
+                          "role": "Superadmin",
+                          "createdAt": "2023-10-21T05:45:15.380Z",
+                          "updatedAt": "2023-10-21T05:45:15.380Z",
+                          "Auth": {
+                            "id": 1,
+                            "email": "fadhlan@gmail.com",
+                            "password": "$2a$10$w21UZzMLTtQBAem8xZYqQOjw4gfv/I4x61J3SuCtMZCpVM6p5E9TC",
+                            "userId": 1,
+                            "createdAt": "2023-10-21T05:45:15.389Z",
+                            "updatedAt": "2023-10-21T05:45:15.389Z"
+                          }
                         }
                       }
                     }
@@ -581,6 +559,56 @@
                         "message": {
                           "type": "string",
                           "example": "Token tidak valid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Akses ditolak",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User tidak ada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User dengan id: 1 tidak ada"
                         }
                       }
                     }
@@ -1407,6 +1435,285 @@
         }
       }
     },
+    "/book/": {
+      "get": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return book data that has been filtered",
+        "description": "Use this API to do filtering",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "search=The Great Gatsby"
+            },
+            "description": "Seach param"
+          },
+          {
+            "name": "genre",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "genre=fiction"
+            },
+            "description": "shortby genre"
+          },
+          {
+            "name": "author",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "author=scott    "
+            },
+            "description": "shortby author"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success to get book data based on filter param",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "book": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "title": "The Great Gatsby",
+                        "genre": "Fiction",
+                        "author": "F. Scott Fitzgerald",
+                        "language": "English",
+                        "publicationYear": 1925,
+                        "publisher": "Scribner",
+                        "imageCover": "http://via.placeholder.com/600x400",
+                        "numOfBooks": 10,
+                        "numBorrowed": 2,
+                        "rackId": 1,
+                        "createdAt": "2023-06-28T09:25:00.000Z",
+                        "updatedAt": "2023-06-28T09:25:00.000Z"
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "TotalData": 1,
+                        "totalPages": 1,
+                        "limit": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Create new book data",
+        "description": "ini API utk register member",
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "arknight"
+                  },
+                  "author": {
+                    "type": "string",
+                    "example": "jhon doe"
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "example": "Yostar"
+                  },
+                  "publicationYear": {
+                    "type": "integer",
+                    "example": 2020
+                  },
+                  "genre": {
+                    "type": "integer",
+                    "example": "action"
+                  },
+                  "numOfBooks": {
+                    "type": "string",
+                    "example": "3"
+                  },
+                  "numBorrowed": {
+                    "type": "string",
+                    "example": "0"
+                  },
+                  "rackId": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "language": {
+                    "type": "string",
+                    "example": "English"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success adding new book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "book": {
+                      "type": "object",
+                      "example": {
+                        "imageCover": "https://dailymockup.com/wp-content/uploads/edd/2019/04/free-book-cover-mockup-psd.jpg",
+                        "id": 11,
+                        "title": "arknight",
+                        "genre": "action",
+                        "author": "jhon doe",
+                        "language": "English",
+                        "publicationYear": 2020,
+                        "publisher": "Yostar",
+                        "numOfBooks": 3,
+                        "numBorrowed": 0,
+                        "rackId": 1,
+                        "updatedAt": "2024-04-20T18:33:03.010Z",
+                        "createdAt": "2024-04-20T18:33:03.010Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is a field with null value  ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Input cant be null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/book/{id}": {
       "get": {
         "tags": ["Books"],
@@ -1758,285 +2065,6 @@
                     "message": {
                       "type": "string",
                       "example": "Book not found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/book/": {
-      "get": {
-        "tags": ["Books"],
-        "security": [
-          {
-            "bearerToken": []
-          }
-        ],
-        "summary": "Return book data that has been filtered",
-        "description": "Use this API to do filtering",
-        "parameters": [
-          {
-            "name": "search",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "search=The Great Gatsby"
-            },
-            "description": "Seach param"
-          },
-          {
-            "name": "genre",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "genre=fiction"
-            },
-            "description": "shortby genre"
-          },
-          {
-            "name": "author",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "author=scott    "
-            },
-            "description": "shortby author"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Success to get book data based on filter param",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Success"
-                    },
-                    "book": {
-                      "type": "object",
-                      "example": {
-                        "id": 1,
-                        "title": "The Great Gatsby",
-                        "genre": "Fiction",
-                        "author": "F. Scott Fitzgerald",
-                        "language": "English",
-                        "publicationYear": 1925,
-                        "publisher": "Scribner",
-                        "imageCover": "http://via.placeholder.com/600x400",
-                        "numOfBooks": 10,
-                        "numBorrowed": 2,
-                        "rackId": 1,
-                        "createdAt": "2023-06-28T09:25:00.000Z",
-                        "updatedAt": "2023-06-28T09:25:00.000Z"
-                      }
-                    },
-                    "data": {
-                      "type": "object",
-                      "example": {
-                        "TotalData": 1,
-                        "totalPages": 1,
-                        "limit": 1
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Token not found"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Cant find book with requested id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Error"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Book not found"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["Books"],
-        "security": [
-          {
-            "bearerToken": []
-          }
-        ],
-        "summary": "Create new book data",
-        "description": "ini API utk register member",
-        "requestBody": {
-          "description": "Request body",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "arknight"
-                  },
-                  "author": {
-                    "type": "string",
-                    "example": "jhon doe"
-                  },
-                  "publisher": {
-                    "type": "string",
-                    "example": "Yostar"
-                  },
-                  "publicationYear": {
-                    "type": "integer",
-                    "example": 2020
-                  },
-                  "genre": {
-                    "type": "integer",
-                    "example": "action"
-                  },
-                  "numOfBooks": {
-                    "type": "string",
-                    "example": "3"
-                  },
-                  "numBorrowed": {
-                    "type": "string",
-                    "example": "0"
-                  },
-                  "rackId": {
-                    "type": "string",
-                    "example": "1"
-                  },
-                  "language": {
-                    "type": "string",
-                    "example": "English"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Success adding new book",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Success"
-                    },
-                    "book": {
-                      "type": "object",
-                      "example": {
-                        "imageCover": "https://dailymockup.com/wp-content/uploads/edd/2019/04/free-book-cover-mockup-psd.jpg",
-                        "id": 11,
-                        "title": "arknight",
-                        "genre": "action",
-                        "author": "jhon doe",
-                        "language": "English",
-                        "publicationYear": 2020,
-                        "publisher": "Yostar",
-                        "numOfBooks": 3,
-                        "numBorrowed": 0,
-                        "rackId": 1,
-                        "updatedAt": "2024-04-20T18:33:03.010Z",
-                        "createdAt": "2024-04-20T18:33:03.010Z"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "There is a field with null value  ",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Input cant be null"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Token not found"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Access denied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Error"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "You are not authorized. Required role Admin or Staff"
                     }
                   }
                 }

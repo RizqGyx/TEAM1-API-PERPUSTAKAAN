@@ -1,4 +1,4 @@
-  const ApiError = require("../utils/apiError");
+const ApiError = require("../utils/apiError");
 
 const checkRole = (...roles) => {
   return async (req, res, next) => {
@@ -8,11 +8,10 @@ const checkRole = (...roles) => {
         next(
           new ApiError(
             `You are not authorized. Required role: ${allowedRoles}`,
-            403
+            401
           )
         );
       }
-      // Lanjutkan jika peran pengguna sesuai dengan salah satu dari peran yang diizinkan
       next();
     } catch (err) {
       next(new ApiError(err.message, 500));

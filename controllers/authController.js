@@ -9,26 +9,26 @@ const findAuths = async (req, res, next) => {
     const { page, limit } = req.query;
 
     const pageNum = parseInt(page) || 1;
-    const pageSize = parseInt(limit) || 10;
-    const offset = (pageNum - 1) * pageSize;
+    const dataLimit = parseInt(limit) || 10;
+    const offset = (pageNum - 1) * dataLimit;
 
     const { count, rows: auths } = await Auth.findAndCountAll({
       offset,
-      limit: pageSize,
+      limit: dataLimit,
     });
 
-    const totalPages = Math.ceil(count / pageSize);
+    const totalPages = Math.ceil(count / dataLimit);
 
     res.status(200).json({
       status: "Success",
       data: {
+        totalData: count,
+        auths,
         pagination: {
-          totalData: count,
           totalPages,
           pageNum,
-          pageSize,
+          dataLimit,
         },
-        auths,
       },
     });
   } catch (err) {
@@ -40,6 +40,10 @@ const register = async (req, res, next) => {
   try {
     let { name, email, password, city, address, phone, role } = req.body;
     email = email.toLowerCase();
+
+    if (role != undefined || role != null) {
+      role = role.toLowerCase().charAt(0).toUpperCase() + role.slice(1);
+    }
 
     const user = await Auth.findOne({
       where: {
@@ -107,8 +111,8 @@ const login = async (req, res, next) => {
       },
       include: ["User"],
     });
-    console.log(password)
-    console.log(user.password)
+    console.log(password);
+    console.log(user.password);
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign(
         {

@@ -36,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
           "https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
       },
       role: {
-        type: DataTypes.ENUM(["Guest","Admin", "Manager", "Staff"]),
-        defaultValue: "Guest",
+        type: DataTypes.ENUM(["Member", "Manager", "Admin", "Staff", "Owner"]),
+        defaultValue: "Member",
       },
       libraryId: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,

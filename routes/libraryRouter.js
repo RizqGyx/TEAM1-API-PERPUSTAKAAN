@@ -9,34 +9,33 @@ const checkRole = require("../middlewares/checkRole");
 router.get("/", autentikasi, Library.findLibrarys);
 router.post(
   "/",
-  checkId,
   autentikasi,
+  checkId(Library),
+  checkRole(["Admin", "Manager", "Owner"]),
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
   Library.createLibrary
 );
 router.get(
   "/:id",
-  checkId,
   autentikasi,
+  checkId(Library),
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
   Library.findLibraryById
 );
 router.patch(
   "/:id",
-  checkId,
+  checkId(Library),
   autentikasi,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner"]),
   Library.updateLibrary
 );
 router.delete(
   "/:id",
-  checkId,
+  checkId(Library),
   autentikasi,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner"]),
   Library.deleteLibrary
 );
 
