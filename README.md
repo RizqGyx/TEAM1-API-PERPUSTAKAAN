@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">A Fullstack Dashboard for a library designed to manage library data and a library website utilizing <a href="https://expressjs.com/" target="_blank">Express.js</a> as the backend and <span style="color:red;">Postgress</span> as the Database Management System (DBMS)</h4>
+<h4 align="center">A Fullstack Dashboard for a library designed to manage library data and a library website utilizing <a href="https://expressjs.com/" target="_blank">Express.js</a> as the backend and <span style="color:red;">Sequelize(SQL) Postgress</span> as the Database Management System (DBMS)</h4>
 
 <p align="center">
   <a href="#express">express</a> •
@@ -49,12 +49,22 @@ Membuat Dashboard Perpustakaan Untuk Mengelola Data Perpustakaan dan Situs Web P
 
 ### Detail Table
 
-#### Transaction
-
 Transaction:
 
-- Berisikan Data Transaksi Peminjaman Buku Dan Bisa Dipinjam Oleh Semua User walaupun Rolenya Tidak Guest
+- Berisikan Data Transaksi Peminjaman Buku Dan Bisa Dipinjam Oleh Semua User dan Role
 - Kolom returnDate Dan borrowDate tidak dapat dimodifikasi baik ketika membuat data ataupun update karena akan otomatis mengisi borrowDate dengan data waktu pembuatan data dan returnDate +3 hari
+
+Book:
+
+- Berisikan Data Buku
+
+Library:
+
+- Berisikan Data Library Yang Ada
+
+Rack:
+
+- Berisikan Data Rak buku yang ada pada tiap library
 
 ### Role
 
@@ -142,7 +152,7 @@ http://localhost:3000
 
 ### API
 
--Auth
+-Auth(Rizki)
 
 | Method | Endpoint  | Deskripsi                                      | Example                                    | Need Token |
 | ------ | --------- | ---------------------------------------------- | ------------------------------------------ | ---------- |
@@ -151,25 +161,56 @@ http://localhost:3000
 | Post   | /login    | Melakukan Login                                | http://localhost:3000/api/v1/auth/login    | ❌         |
 | Post   | /register | Melakukan Register Atau Membuat Data Auth Baru | http://localhost:3000/api/v1/auth/register | ✔️         |
 
--User
+-User(Tegar)
 
 | Method | Endpoint    | Deskripsi                                  | Example                                      | Need Token |
 | ------ | ----------- | ------------------------------------------ | -------------------------------------------- | ---------- |
 | Get    | /           | Mendapatkan Semua Data User                | http://localhost:3000/api/v1/user            | ✔️         |
 | Get    | /:search    | Mendapatkan Data User Dengan Filter Params | http://localhost:3000/api/v1/user/:search    | ✔️         |
 | Get    | /:id        | Mendapatkan Data User Berdasarkan ID       | http://localhost:3000/api/v1/user/:id        | ✔️         |
-| Post   | /edit/:id   | Melakukan Edit Data User Berdasarkan ID    | http://localhost:3000/api/v1/user/edit/:id   | ✔️         |
+| Patch  | /edit/:id   | Melakukan Edit Data User Berdasarkan ID    | http://localhost:3000/api/v1/user/edit/:id   | ✔️         |
 | Delete | /delete/:id | Melakukan Delete Data User Berdasarkan ID  | http://localhost:3000/api/v1/user/delete/:id | ✔️         |
 
--Transaction
+-Transaction(Rizki)
 
-| Method | Endpoint    | Deskripsi                                  | Example                                      | Need Token |
-| ------ | ----------- | ------------------------------------------ | -------------------------------------------- | ---------- |
-| Get    | /           | Mendapatkan Semua Data User                | http://localhost:3000/api/v1/user            | ✔️         |
-| Get    | /:search    | Mendapatkan Data User Dengan Filter Params | http://localhost:3000/api/v1/user/:search    | ✔️         |
-| Get    | /:id        | Mendapatkan Data User Berdasarkan ID       | http://localhost:3000/api/v1/user/:id        | ✔️         |
-| Post   | /edit/:id   | Melakukan Edit Data User Berdasarkan ID    | http://localhost:3000/api/v1/user/edit/:id   | ✔️         |
-| Delete | /delete/:id | Melakukan Delete Data User Berdasarkan ID  | http://localhost:3000/api/v1/user/delete/:id | ✔️         |
+| Method | Endpoint    | Deskripsi                                        | Example                                             | Need Token |
+| ------ | ----------- | ------------------------------------------------ | --------------------------------------------------- | ---------- |
+| Get    | /           | Mendapatkan Semua Data Transaction               | http://localhost:3000/api/v1/transaction            | ✔️         |
+| Get    | /:id        | Mendapatkan Data Transaction Berdasarkan ID      | http://localhost:3000/api/v1/transaction/:id        | ✔️         |
+| Post   | /create     | Menambah Data Transaction Baru                   | http://localhost:3000/api/v1/transaction/create     | ✔️         |
+| Patch  | /edit/:id   | Melakukan Edit Data Transaction Berdasarkan ID   | http://localhost:3000/api/v1/transaction/edit/:id   | ✔️         |
+| Delete | /delete/:id | Melakukan Delete Data Transaction Berdasarkan ID | http://localhost:3000/api/v1/transaction/delete/:id | ✔️         |
+
+-Library(Rafi)
+
+| Method | Endpoint    | Deskripsi                                    | Example                                         | Need Token |
+| ------ | ----------- | -------------------------------------------- | ----------------------------------------------- | ---------- |
+| Get    | /           | Mendapatkan Semua Data Library               | http://localhost:3000/api/v1/library            | ✔️         |
+| Get    | /:id        | Mendapatkan Data Library Berdasarkan ID      | http://localhost:3000/api/v1/library/:id        | ✔️         |
+| Post   | /create     | Menambah Data Library Baru                   | http://localhost:3000/api/v1/library/create     | ✔️         |
+| Patch  | /edit/:id   | Melakukan Edit Data Library Berdasarkan ID   | http://localhost:3000/api/v1/library/edit/:id   | ✔️         |
+| Delete | /delete/:id | Melakukan Delete Data Library Berdasarkan ID | http://localhost:3000/api/v1/library/delete/:id | ✔️         |
+
+-Book(Yoga)
+
+| Method | Endpoint    | Deskripsi                                 | Example                                      | Need Token |
+| ------ | ----------- | ----------------------------------------- | -------------------------------------------- | ---------- |
+| Get    | /           | Mendapatkan Semua Data Book Filter        | http://localhost:3000/api/v1/book            | ✔️         |
+| Get    | /:id        | Mendapatkan Data Book Berdasarkan ID      | http://localhost:3000/api/v1/book/:id        | ✔️         |
+| Get    | /find/books | Mendapatkan Data Book                     | http://localhost:3000/api/v1/book/find/books | ✔️         |
+| Post   | /           | Menambah Data Book Baru                   | http://localhost:3000/api/v1/book            | ✔️         |
+| Put    | /:id        | Melakukan Edit Data Book Berdasarkan ID   | http://localhost:3000/api/v1/book/:id        | ✔️         |
+| Delete | /:id        | Melakukan Delete Data Book Berdasarkan ID | http://localhost:3000/api/v1/book/:id        | ✔️         |
+
+-Rack(Rizki)
+
+| Method | Endpoint    | Deskripsi                                 | Example                                      | Need Token |
+| ------ | ----------- | ----------------------------------------- | -------------------------------------------- | ---------- |
+| Get    | /           | Mendapatkan Semua Data Rack               | http://localhost:3000/api/v1/rack            | ✔️         |
+| Get    | /:id        | Mendapatkan Data Rack Berdasarkan ID      | http://localhost:3000/api/v1/rack/:id        | ✔️         |
+| Post   | /create     | Menambah Data Rack Baru                   | http://localhost:3000/api/v1/rack/create     | ✔️         |
+| Patch  | /edit/:id   | Melakukan Edit Data Rack Berdasarkan ID   | http://localhost:3000/api/v1/rack/edit/:id   | ✔️         |
+| Delete | /delete/:id | Melakukan Delete Data Rack Berdasarkan ID | http://localhost:3000/api/v1/rack/delete/:id | ✔️         |
 
 ### WEB
 
@@ -183,6 +224,10 @@ http://localhost:3000
 | [GOLD🥇] Chapter 5 - API-Perpustakaan |
 
 ## Api Postman
+
+<a href="https://documenter.getpostman.com/view/29668082/2sA3Bn7Cp8"
+      ><img src="./public/images/postman.png" alt="Postman Logo"
+    /></a>
 
 [API POSTMAN](https://documenter.getpostman.com/view/29668082/2sA3Bn7Cp8)
 

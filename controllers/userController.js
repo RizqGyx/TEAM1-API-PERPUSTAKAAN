@@ -153,7 +153,7 @@ const deleteUser = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "successfully deleted user",
+      message: "Successfully deleted user",
     });
   } catch (err) {
     next(new ApiError(err.message, 400));

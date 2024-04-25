@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const imagekit = require("../lib/imagekit");
-const { Auth, User } = require("../models");
+const { Auth, User, Transaction } = require("../models");
 const ApiError = require("../utils/apiError");
 
 const findAuths = async (req, res, next) => {
@@ -134,7 +134,7 @@ const login = async (req, res, next) => {
         data: token,
       });
     } else {
-      next(new ApiError("wrong password or user doesn't exist", 400));
+      next(new ApiError("Wrong password or user doesn't exist", 400));
     }
   } catch (err) {
     next(new ApiError(err.message, 500));
@@ -143,10 +143,20 @@ const login = async (req, res, next) => {
 
 const authenticate = async (req, res) => {
   try {
+    const userId = req.user.id;
+
+    const transactions = await Transaction.findAll({
+      where: {
+        userId: userId,
+      },
+    });
+
     res.status(200).json({
       status: "Success",
       data: {
         user: req.user,
+        totalTransactions: transactions.length,
+        transactions,
       },
     });
   } catch (err) {

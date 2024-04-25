@@ -75,13 +75,13 @@ const findTransactions = async (req, res, next) => {
     res.status(200).json({
       status: "Success",
       data: {
+        transactions,
         pagination: {
           totalData: count,
           totalPages,
           pageNum,
           limitData,
         },
-        transactions,
       },
     });
   } catch (err) {
@@ -137,7 +137,7 @@ const updateTransaction = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: `Transaction with id : ${id} updated successfully`,
+      message: `Transaction with ID : ${id} updated successfully`,
       data: updatedTransaction,
     });
   } catch (err) {
@@ -156,7 +156,7 @@ const deleteTransaction = async (req, res, next) => {
     }
     res.status(200).json({
       status: "Success",
-      message: `Transaction with id : ${id} deleted successfully`,
+      message: `Transaction with ID : ${id} deleted successfully`,
     });
   } catch (err) {
     next(new ApiError(err.message, err.statusCode || 400));

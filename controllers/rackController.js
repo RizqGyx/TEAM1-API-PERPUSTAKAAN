@@ -33,13 +33,13 @@ const findRacks = async (req, res, next) => {
     res.status(200).json({
       status: "Success",
       data: {
+        totalData: count,
+        racks,
         pagination: {
-          totalData: count,
           totalPages,
           pageNum,
           limitData,
         },
-        racks,
       },
     });
   } catch (err) {
@@ -110,7 +110,22 @@ const deleteRack = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "successfully deleted rack",
+      message: "Successfully deleted rack",
+    });
+  } catch (err) {
+    next(new ApiError(err.message, 400));
+  }
+};
+
+const createRack = async (req, res, next) => {
+  try {
+    const rack = await Rack.create(req.body);
+
+    res.status(201).json({
+      status: "Success",
+      data: {
+        rack,
+      },
     });
   } catch (err) {
     next(new ApiError(err.message, 400));
@@ -120,6 +135,7 @@ const deleteRack = async (req, res, next) => {
 module.exports = {
   findRacks,
   findRackById,
+  createRack,
   updateRack,
   deleteRack,
 };

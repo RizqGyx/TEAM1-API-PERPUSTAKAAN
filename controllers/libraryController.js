@@ -80,7 +80,7 @@ const updateLibrary = async (req, res, next) => {
 
         res.status(200).json({
             status: "Success",
-            message: "successful library update",
+            message: "Successful library update",
             updatedLibrary
         });
     } catch (err) {

@@ -90,7 +90,7 @@ const createNewBooks = async (req, res, next) => {
         const newBook = await Book.create(value)
 
         res.status(201).json({
-            status: "success",
+            status: "Success",
             book: newBook
         })
     } catch (error) {
@@ -184,13 +184,13 @@ const deleteBookById = async (req, res, next) => {
             include: ["Rack"]
         });
 
-        if(!book) next(new apiError(`Cant find book with id: ${id}`))
+        if(!book) next(new apiError(`Cant find book with ID: ${id}`))
         if(book.Rack.id !== req.user.libraryId) return next(new apiError(`Sorry but you dont have access in this library`, 400))
 
         await book.destroy()
 
         res.status(200).json({
-            status: "success",
+            status: "Success",
             message: "Book has been deleted"
         })
     } catch (error) {
