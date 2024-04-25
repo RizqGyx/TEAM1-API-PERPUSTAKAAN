@@ -29,9 +29,10 @@ const findLibrarys = async (req, res, next) => {
         res.status(200).json({
             status: "Success",
             data: {
+                totalData: librarys.count,
                 librarys: librarys.rows,
-                totalItems: librarys.count,
                 totalPages: Math.ceil(librarys.count / limit),
+                pageSize: limit,
                 currentPage: page,
             },
         });
@@ -75,10 +76,12 @@ const updateLibrary = async (req, res, next) => {
                 },
             }
         );
+        const updatedLibrary = await Library.findByPk(req.params.id);
 
         res.status(200).json({
             status: "Success",
             message: "successful library update",
+            updatedLibrary
         });
     } catch (err) {
         next(new ApiError(err.message, 400));

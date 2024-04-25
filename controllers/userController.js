@@ -123,7 +123,7 @@ const updateUser = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "User updated Successful",
+      message: "User updated successful",
       updatedUser,
     });
   } catch (err) {

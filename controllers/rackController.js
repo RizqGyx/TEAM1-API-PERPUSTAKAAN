@@ -6,8 +6,8 @@ const findRacks = async (req, res, next) => {
     const { rackNumber, floorNumber, libraryId, page, limit } = req.query;
 
     const pageNum = parseInt(page) || 1;
-    const pageSize = parseInt(limit) || 10;
-    const offset = (pageNum - 1) * pageSize;
+    const limitData = parseInt(limit) || 10;
+    const offset = (pageNum - 1) * limitData;
 
     const whereClause = {};
     if (rackNumber) whereClause.rackNumber = rackNumber;
@@ -25,10 +25,10 @@ const findRacks = async (req, res, next) => {
     const { count, rows: racks } = await Rack.findAndCountAll({
       where: whereClause,
       offset,
-      limit: pageSize,
+      limit: limitData,
     });
 
-    const totalPages = Math.ceil(count / pageSize);
+    const totalPages = Math.ceil(count / limitData);
 
     res.status(200).json({
       status: "Success",
@@ -37,7 +37,7 @@ const findRacks = async (req, res, next) => {
           totalData: count,
           totalPages,
           pageNum,
-          pageSize,
+          limitData,
         },
         racks,
       },
@@ -86,7 +86,7 @@ const updateRack = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "Rack updated Successful",
+      message: "Rack updated successful",
       updatedRack,
     });
   } catch (err) {

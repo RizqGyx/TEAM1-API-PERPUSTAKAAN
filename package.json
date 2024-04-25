@@ -48,6 +48,7 @@
     "team01-api-perpustakaan": "bin/app.js"
   },
   "directories": {
+    "doc": "docs",
     "lib": "lib"
   }
 }

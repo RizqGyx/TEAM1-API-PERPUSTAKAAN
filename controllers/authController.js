@@ -120,7 +120,7 @@ const login = async (req, res, next) => {
           username: user.User.name,
           role: user.User.role,
           email: user.email,
-          shopId: user.shopId,
+          libraryId: user.libraryId,
         },
         process.env.JWT_SECRET,
         {

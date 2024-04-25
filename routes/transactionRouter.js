@@ -20,7 +20,7 @@ router.get(
   "/:id",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager", "Owner"]),
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.findTransactionById
 );
 router.patch(

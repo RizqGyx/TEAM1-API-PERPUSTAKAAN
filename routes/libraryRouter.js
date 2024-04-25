@@ -2,40 +2,31 @@ const router = require("express").Router();
 
 const Library = require("../controllers/libraryController");
 const autentikasi = require("../middlewares/authenticate");
-const checkId = require("../middlewares/checkId");
 const checkOwnership = require("../middlewares/checkOwnership");
+const checkId = require("../middlewares/checkId");
 const checkRole = require("../middlewares/checkRole");
 
 router.get("/", autentikasi, Library.findLibrarys);
 router.post(
-  "/",
+  "/create",
   autentikasi,
-  checkId(Library),
-  checkRole(["Admin", "Manager", "Owner"]),
-  checkOwnership,
+  checkRole(["Owner"]),
   Library.createLibrary
 );
-router.get(
-  "/:id",
-  autentikasi,
-  checkId(Library),
-  checkOwnership,
-  Library.findLibraryById
-);
+router.get("/:id", autentikasi, checkId(Library), Library.findLibraryById);
 router.patch(
-  "/:id",
-  checkId(Library),
+  "/edit/:id",
   autentikasi,
+  checkId(Library),
   checkOwnership,
-  checkRole(["Admin", "Manager", "Owner"]),
+  checkRole(["Owner", "Manager"]),
   Library.updateLibrary
 );
 router.delete(
-  "/:id",
-  checkId(Library),
+  "/delete/:id",
   autentikasi,
-  checkOwnership,
-  checkRole(["Admin", "Manager", "Owner"]),
+  checkId(Library),
+  checkRole(["Owner"]),
   Library.deleteLibrary
 );
 
