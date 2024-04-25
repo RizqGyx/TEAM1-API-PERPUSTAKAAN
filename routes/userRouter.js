@@ -1,6 +1,7 @@
 const router = require("express").Router();
+const { User } = require("../models");
 
-const User = require("../controllers/userController");
+const Users = require("../controllers/userController");
 const upload = require("../middlewares/uploader");
 const autentikasi = require("../middlewares/authenticate");
 const checkId = require("../middlewares/checkId");
@@ -10,34 +11,28 @@ router.get(
   "/",
   autentikasi,
   checkRole("Owner", "Manager", "Admin", "Staff"),
-  User.findUsers
-);
-router.get(
-  "/:search",
-  autentikasi,
-  checkRole("Owner", "Manager", "Admin", "Staff"),
-  User.findUsersByFilter
+  Users.findUsers
 );
 router.get(
   "/:id",
   autentikasi,
-  checkId,
+  checkId(User),
   checkRole("Owner", "Manager", "Admin", "Staff"),
-  User.findUserById
+  Users.findUserById
 );
 router.patch(
   "/edit/:id",
   autentikasi,
-  checkId,
+  checkId(User),
   upload.array("images"),
-  User.updateUser
+  Users.updateUser
 );
 router.delete(
   "/delete/:id",
   autentikasi,
-  checkId,
+  checkId(User),
   checkRole("Owner", "Manager", "Admin", "Staff"),
-  User.deleteUser
+  Users.deleteUser
 );
 
 module.exports = router;

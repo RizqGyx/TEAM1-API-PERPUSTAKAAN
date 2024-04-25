@@ -1,6 +1,7 @@
 const router = require("express").Router();
+const { Transaction } = require("../models");
 
-const Transaction = require("../controllers/transactionController");
+const Transactions = require("../controllers/transactionController");
 
 const authenticate = require("../middlewares/authenticate");
 const checkOwnership = require("../middlewares/checkOwnership");
@@ -8,38 +9,38 @@ const checkRole = require("../middlewares/checkRole");
 const checkId = require("../middlewares/checkId");
 const checkDateFields = require("../middlewares/checkFieldTransaction");
 
-router.get("/", authenticate, Transaction.findTransactions);
+router.get("/", authenticate, Transactions.findTransactions);
 router.post(
   "/create",
   authenticate,
   checkOwnership,
   checkDateFields,
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
-  Transaction.createTransaction
+  checkRole("Admin", "Manager", "Owner", "Staff"),
+  Transactions.createTransaction
 );
 router.get(
   "/:id",
   authenticate,
-  checkId,
+  checkId(Transaction),
   checkOwnership,
-  Transaction.findTransactionById
+  Transactions.findTransactionById
 );
 router.patch(
   "/edit/:id",
   authenticate,
-  checkId,
+  checkId(Transaction),
   checkOwnership,
   checkDateFields,
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
-  Transaction.updateTransaction
+  checkRole("Admin", "Manager", "Owner", "Staff"),
+  Transactions.updateTransaction
 );
 router.delete(
   "/delete/:id",
   authenticate,
-  checkId,
+  checkId(Transaction),
   checkOwnership,
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
-  Transaction.deleteTransaction
+  checkRole("Admin", "Manager", "Owner", "Staff"),
+  Transactions.deleteTransaction
 );
 
 module.exports = router;

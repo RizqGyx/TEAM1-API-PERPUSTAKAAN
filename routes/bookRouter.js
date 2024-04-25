@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const { Book } = require("../models");
+
 const books = require("../controllers/booksController");
 const authenticate = require("../middlewares/authenticate");
 const checkRole = require("../middlewares/checkRole");
@@ -6,7 +8,7 @@ const upload = require("../middlewares/uploader");
 const checkId = require("../middlewares/checkId");
 
 // Find by id
-router.get("/:id", authenticate, checkId, books.findBooksById);
+router.get("/:id", authenticate, checkId(Book), books.findBooksById);
 
 // Search and filter
 router.get("/", authenticate, books.filterBooks);
@@ -15,7 +17,6 @@ router.get("/", authenticate, books.filterBooks);
 router.post(
   "/",
   authenticate,
-  checkId,
   upload.array("images"),
   checkRole("Admin", "Manager", "Owner", "Staff"),
   books.createNewBooks
@@ -25,7 +26,7 @@ router.post(
 router.delete(
   "/:id",
   authenticate,
-  checkId,
+  checkId(Book),
   checkRole("Admin", "Manager", "Owner", "Staff"),
   books.deleteBookById
 );
@@ -33,7 +34,7 @@ router.delete(
 router.put(
   "/:id",
   authenticate,
-  checkId,
+  checkId(Book),
   upload.array("images"),
   checkRole("Admin", "Manager", "Owner", "Staff"),
   books.updateBookData

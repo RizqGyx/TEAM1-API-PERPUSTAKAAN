@@ -166,7 +166,6 @@ http://localhost:3000
 | Method | Endpoint    | Deskripsi                                  | Example                                      | Need Token |
 | ------ | ----------- | ------------------------------------------ | -------------------------------------------- | ---------- |
 | Get    | /           | Mendapatkan Semua Data User                | http://localhost:3000/api/v1/user            | ✔️         |
-| Get    | /:search    | Mendapatkan Data User Dengan Filter Params | http://localhost:3000/api/v1/user/:search    | ✔️         |
 | Get    | /:id        | Mendapatkan Data User Berdasarkan ID       | http://localhost:3000/api/v1/user/:id        | ✔️         |
 | Patch  | /edit/:id   | Melakukan Edit Data User Berdasarkan ID    | http://localhost:3000/api/v1/user/edit/:id   | ✔️         |
 | Delete | /delete/:id | Melakukan Delete Data User Berdasarkan ID  | http://localhost:3000/api/v1/user/delete/:id | ✔️         |

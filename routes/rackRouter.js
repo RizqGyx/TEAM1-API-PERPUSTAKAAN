@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { Rack } = require("../models");
 
 const Racks = require("../controllers/rackController");
 const checkOwnership = require("../middlewares/checkOwnership");
@@ -15,7 +16,7 @@ router.get(
 router.get(
   "/:id",
   autentikasi,
-  checkId,
+  checkId(Rack),
   checkRole("Owner", "Admin", "Manager", "Staff"),
   Racks.findRackById
 );
@@ -29,7 +30,7 @@ router.post(
 router.patch(
   "/edit/:id",
   autentikasi,
-  checkId,
+  checkId(Rack),
   checkOwnership,
   checkRole("Owner", "Admin", "Manager", "Staff"),
   Racks.updateRack
@@ -37,7 +38,7 @@ router.patch(
 router.delete(
   "/delete/:id",
   autentikasi,
-  checkId,
+  checkId(Rack),
   checkOwnership,
   checkRole("Owner", "Admin", "Manager", "Staff"),
   Racks.deleteRack
