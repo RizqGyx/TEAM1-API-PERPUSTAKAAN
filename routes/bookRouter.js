@@ -17,7 +17,7 @@ router.post(
   authenticate,
   checkId,
   upload.array("images"),
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
+  checkRole("Admin", "Manager", "Owner", "Staff"),
   books.createNewBooks
 );
 
@@ -26,7 +26,7 @@ router.delete(
   "/:id",
   authenticate,
   checkId,
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
+  checkRole("Admin", "Manager", "Owner", "Staff"),
   books.deleteBookById
 );
 // edit data
@@ -35,7 +35,7 @@ router.put(
   authenticate,
   checkId,
   upload.array("images"),
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
+  checkRole("Admin", "Manager", "Owner", "Staff"),
   books.updateBookData
 );
 // dummy

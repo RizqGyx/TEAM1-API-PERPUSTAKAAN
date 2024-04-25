@@ -23,7 +23,7 @@ router.post(
   "/create",
   autentikasi,
   checkOwnership,
-  checkRole(["Admin", "Manager", "Owner", "Staff"]),
+  checkRole("Admin", "Manager", "Owner", "Staff"),
   Racks.createRack
 );
 router.patch(

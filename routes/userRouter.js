@@ -3,31 +3,40 @@ const router = require("express").Router();
 const User = require("../controllers/userController");
 const upload = require("../middlewares/uploader");
 const autentikasi = require("../middlewares/authenticate");
+const checkId = require("../middlewares/checkId");
 const checkRole = require("../middlewares/checkRole");
 
 router.get(
   "/",
   autentikasi,
-  checkRole("Manager", "Admin", "Staff"),
+  checkRole("Owner", "Manager", "Admin", "Staff"),
   User.findUsers
 );
 router.get(
   "/:search",
   autentikasi,
-  checkRole("Manager", "Admin", "Staff"),
+  checkRole("Owner", "Manager", "Admin", "Staff"),
   User.findUsersByFilter
 );
 router.get(
   "/:id",
   autentikasi,
-  checkRole("Manager", "Admin", "Staff"),
+  checkId,
+  checkRole("Owner", "Manager", "Admin", "Staff"),
   User.findUserById
 );
-router.patch("/edit/:id", autentikasi, upload.array("images"), User.updateUser);
+router.patch(
+  "/edit/:id",
+  autentikasi,
+  checkId,
+  upload.array("images"),
+  User.updateUser
+);
 router.delete(
   "/delete/:id",
   autentikasi,
-  checkRole("Manager", "Admin", "Staff"),
+  checkId,
+  checkRole("Owner", "Manager", "Admin", "Staff"),
   User.deleteUser
 );
 

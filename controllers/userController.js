@@ -4,7 +4,6 @@ const ApiError = require("../utils/apiError");
 
 const findUsers = async (req, res, next) => {
   try {
-    // const users = await User.findAll();
     let filters = {};
 
     const { page = 1, limit = 10 } = req.query;
@@ -20,9 +19,9 @@ const findUsers = async (req, res, next) => {
       status: "Success",
       data: {
         totalItems: users.count,
+        users: users.rows,
         totalPages: Math.ceil(users.count / limit),
         currentPage: page,
-        users: users.rows,
       },
     });
   } catch (err) {

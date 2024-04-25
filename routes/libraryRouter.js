@@ -7,26 +7,21 @@ const checkId = require("../middlewares/checkId");
 const checkRole = require("../middlewares/checkRole");
 
 router.get("/", autentikasi, Library.findLibrarys);
-router.post(
-  "/create",
-  autentikasi,
-  checkRole(["Owner"]),
-  Library.createLibrary
-);
+router.post("/create", autentikasi, checkRole("Owner"), Library.createLibrary);
 router.get("/:id", autentikasi, checkId(Library), Library.findLibraryById);
 router.patch(
   "/edit/:id",
   autentikasi,
   checkId(Library),
   checkOwnership,
-  checkRole(["Owner", "Manager"]),
+  checkRole("Owner", "Manager"),
   Library.updateLibrary
 );
 router.delete(
   "/delete/:id",
   autentikasi,
   checkId(Library),
-  checkRole(["Owner"]),
+  checkRole("Owner"),
   Library.deleteLibrary
 );
 
