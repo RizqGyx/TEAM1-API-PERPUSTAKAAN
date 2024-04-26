@@ -180,7 +180,7 @@ http://localhost:3000
 | Patch  | /edit/:id   | Melakukan Edit Data Transaction Berdasarkan ID   | http://localhost:3000/api/v1/transaction/edit/:id   | ✔️         |
 | Delete | /delete/:id | Melakukan Delete Data Transaction Berdasarkan ID | http://localhost:3000/api/v1/transaction/delete/:id | ✔️         |
 
--Library(Rafi)
+-Library(Rayhan)
 
 | Method | Endpoint    | Deskripsi                                    | Example                                         | Need Token |
 | ------ | ----------- | -------------------------------------------- | ----------------------------------------------- | ---------- |
