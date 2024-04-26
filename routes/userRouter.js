@@ -19,7 +19,7 @@ router.get(
   Users.findUsersByFilter
 );
 router.get(
-  "/user/:id",
+  "/:id",
   autentikasi,
   checkRole("Manager", "Admin", "Staff"),
   Users.findUserById

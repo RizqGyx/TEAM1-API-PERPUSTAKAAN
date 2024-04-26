@@ -1,12 +1,11 @@
 const ApiError = require("../utils/apiError");
-const { Library } = require("../models");
 
-const checkId = async (req, res, next) => {
+const checkId = (Model) => async (req, res, next) => {
   try {
-    const library = await Library.findByPk(req.params.id);
+    const instance = await Model.findByPk(req.params.id);
 
-    if (!library) {
-      return next(new ApiError(`library does not exist`, 404));
+    if (!instance) {
+      return next(new ApiError(`${Model.name} not found`, 404));
     }
 
     next();

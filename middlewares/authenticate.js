@@ -17,20 +17,24 @@ module.exports = async (req, res, next) => {
     try {
       payload = jwt.verify(token, process.env.JWT_SECRET);
     } catch (innerErr) {
-      next(new ApiError("token unvalid", 401));
+      if (innerErr instanceof jwt.TokenExpiredError) {
+        return next(new ApiError("Token expired", 400));
+      }
+      return next(new ApiError("Token invalid", 401));
     }
 
     const user = await User.findByPk(payload.id, {
       include: ["Auth"],
     });
 
+    if (!user) {
+      return next(new ApiError("User not found", 404));
+    }
+
     req.user = user;
     req.payload = payload;
     next();
   } catch (err) {
-    if (err.message === "jwt expired") {
-      next(new ApiError("Token expired", 400));
-    }
-    next(new ApiError(err.message, 500));
+    return next(new ApiError(err.message, 500));
   }
 };

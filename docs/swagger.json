@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "team01-api-perpustakaan Express-rest API Swagger Documentation",
-    "description": "The swagger doc for example perpustakaan api",
+    "description": "Development For Challange Binar Chapter 5 FSW1 Team1 Fullstack Dashboard for a library designed to manage library data and a library website utilizing, Express.js as the backend and Postgress as the Database Management System (DBMS). Github: [TEAM1-API-PERPUSTAKAAN](https://github.com/RizqGyx/TEAM1-API-PERPUSTAKAAN)",
     "version": "1.0.0",
     "license": {
       "name": "ISC",
@@ -16,27 +16,27 @@
   "tags": [
     {
       "name": "Auths",
-      "description": "ini API untuk AUTHS resources"
+      "description": "this is the API for AUTHS resources"
     },
     {
       "name": "Users",
-      "description": "ini API untuk USERS resources"
+      "description": "this is the API for USERS resources"
     },
     {
       "name": "Transactions",
-      "description": "ini API untuk TRANSACTIONS resources"
+      "description": "this is the API for TRANSACTIONS resources"
     },
     {
       "name": "Books",
-      "description": "ini API untuk BOOKS resources"
+      "description": "this is the API for BOOKS resources"
     },
     {
       "name": "Racks",
-      "description": "ini API untuk RACKS resources"
+      "description": "this is the API for RACKS resources"
     },
     {
       "name": "Libraries",
-      "description": "ini API untuk LIBRARIES resources"
+      "description": "this is the API for LIBRARIES resources"
     }
   ],
   "servers": [
@@ -48,10 +48,10 @@
     "/auth/login": {
       "post": {
         "tags": ["Auths"],
-        "summary": "Return hasil hit API login user",
-        "description": "ini API utk login user",
+        "summary": "Return result of user login API call",
+        "description": "This API is for user login",
         "requestBody": {
-          "description": "ini request body utk sukses login user",
+          "description": "Request body for successful user login",
           "content": {
             "application/json": {
               "schema": {
@@ -72,7 +72,7 @@
         },
         "responses": {
           "200": {
-            "description": "Sukses Member login",
+            "description": "Successful login",
             "content": {
               "application/json": {
                 "schema": {
@@ -81,10 +81,6 @@
                     "status": {
                       "type": "string",
                       "example": "Success"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Berhasil login"
                     },
                     "data": {
                       "type": "object",
@@ -101,7 +97,7 @@
             }
           },
           "400": {
-            "description": "Email atau password tidak ada",
+            "description": "Failed User login",
             "content": {
               "application/json": {
                 "schema": {
@@ -116,7 +112,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "email atau password harus diisi"
+                          "example": "wrong password or user does not exist"
                         }
                       }
                     }
@@ -136,10 +132,10 @@
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API register member",
-        "description": "ini API utk register member",
+        "summary": "Returns the result of the registration API",
+        "description": "This API is used for user registration.",
         "requestBody": {
-          "description": "ini request body utk sukses register member",
+          "description": "Request body for successful registration.",
           "content": {
             "application/json": {
               "schema": {
@@ -157,17 +153,17 @@
                     "type": "string",
                     "example": "rahman123"
                   },
-                  "confirmPassword": {
+                  "city": {
                     "type": "string",
-                    "example": "rahman123"
-                  },
-                  "age": {
-                    "type": "integer",
-                    "example": 20
+                    "example": "New York"
                   },
                   "address": {
                     "type": "string",
-                    "example": "Bekasi"
+                    "example": "231 Winchester Dr.Webster"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "2404202422"
                   }
                 }
               }
@@ -176,7 +172,7 @@
         },
         "responses": {
           "201": {
-            "description": "Sukses register",
+            "description": "Successful registration",
             "content": {
               "application/json": {
                 "schema": {
@@ -188,35 +184,16 @@
                     },
                     "data": {
                       "type": "object",
-                      "example": {
-                        "dataValues": {
-                          "id": 8,
-                          "name": "rahman",
-                          "address": "Bekasi",
-                          "role": "Member",
-                          "age": 20,
-                          "updatedAt": "2023-10-22T02:04:31.713Z",
-                          "createdAt": "2023-10-22T02:04:31.713Z"
-                        },
-                        "_previousDataValues": {
-                          "name": "rahman",
-                          "address": "Bekasi",
-                          "role": "Member",
-                          "age": 20,
-                          "id": 8,
-                          "createdAt": "2023-10-22T02:04:31.713Z",
-                          "updatedAt": "2023-10-22T02:04:31.713Z"
-                        },
-                        "uniqno": 1,
-                        "_changed": {},
-                        "_options": {
-                          "isNewRecord": true,
-                          "_schema": null,
-                          "_schemaDelimiter": ""
-                        },
-                        "isNewRecord": false,
+                      "dataValues": {
+                        "id": 16,
+                        "name": "rahman",
                         "email": "rahman@gmail.com",
-                        "password": "$2b$10$ycBSH81CDq.vzPrs6It74u5L4uDLF8Kfr6NHATFr8Cjeo5yUSAunC"
+                        "city": "New York",
+                        "address": "231 Winchester Dr.Webster",
+                        "phone": "2404202422",
+                        "role": "Guest",
+                        "updatedAt": "2023-10-22T02:04:31.713Z",
+                        "createdAt": "2023-10-22T02:04:31.713Z"
                       }
                     }
                   }
@@ -225,7 +202,7 @@
             }
           },
           "400": {
-            "description": "tidak ada nama, email, atau password",
+            "description": "Failed to register member",
             "content": {
               "application/json": {
                 "schema": {
@@ -240,7 +217,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "nama, email, dan password harus diisi"
+                          "example": "name, email, and password must be filled"
                         }
                       }
                     }
@@ -250,7 +227,7 @@
             }
           },
           "409": {
-            "description": "email sudah terdaftar",
+            "description": "Email already registered",
             "content": {
               "application/json": {
                 "schema": {
@@ -265,7 +242,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "email sudah terdaftar"
+                          "example": "email is already registered"
                         }
                       }
                     }
@@ -285,11 +262,11 @@
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API checktoken user",
-        "description": "ini API utk checktoken user",
+        "summary": "Return result HIT API verify user for all roles",
+        "description": "This is an API for getting user information",
         "responses": {
           "200": {
-            "description": "Sukses checktoken",
+            "description": "Success getting information",
             "content": {
               "application/json": {
                 "schema": {
@@ -301,13 +278,40 @@
                     },
                     "data": {
                       "type": "object",
-                      "example": {
-                        "id": 1,
-                        "name": "fadhlan",
-                        "age": 20,
-                        "address": "Bogor",
-                        "role": "Superadmin",
-                        "email": "fadhlan@gmail.com"
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Aku"
+                            },
+                            "age": {
+                              "type": "integer",
+                              "example": 23
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Korea"
+                            },
+                            "role": {
+                              "type": "string",
+                              "example": "superadmin"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "aku@mail.com"
+                            },
+                            "password": {
+                              "type": "string",
+                              "example": "$gahsg$$$GASJB$YUAghjasyd$$gHS$"
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -315,8 +319,8 @@
               }
             }
           },
-          "400": {
-            "description": "Token tidak ada",
+          "500": {
+            "description": "User verification failed",
             "content": {
               "application/json": {
                 "schema": {
@@ -326,238 +330,9 @@
                       "type": "string",
                       "example": "Failed"
                     },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Tokennya tidak ada"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Token tidak valid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
+                    "message": {
                       "type": "string",
-                      "example": "Error"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Token tidak valid"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/create-admin": {
-      "post": {
-        "tags": ["Users"],
-        "security": [
-          {
-            "bearerToken": []
-          }
-        ],
-        "summary": "Return hasil hit API create user admin",
-        "description": "ini API utk register admin",
-        "requestBody": {
-          "description": "ini request body utk sukses register member",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Ilyas"
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "ilyas@gmail.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "ilyas123"
-                  },
-                  "confirmPassword": {
-                    "type": "string",
-                    "example": "ilyas123"
-                  },
-                  "age": {
-                    "type": "integer",
-                    "example": 20
-                  },
-                  "address": {
-                    "type": "string",
-                    "example": "Bekasi"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Sukses register",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Success"
-                    },
-                    "data": {
-                      "type": "object",
-                      "example": {
-                        "dataValues": {
-                          "id": 9,
-                          "name": "ilyas",
-                          "address": "Bekasi",
-                          "role": "Admin",
-                          "age": 20,
-                          "updatedAt": "2023-10-22T02:04:31.713Z",
-                          "createdAt": "2023-10-22T02:04:31.713Z"
-                        },
-                        "_previousDataValues": {
-                          "name": "Ilyas",
-                          "address": "Bekasi",
-                          "role": "Admin",
-                          "age": 20,
-                          "id": 9,
-                          "createdAt": "2023-10-22T02:04:31.713Z",
-                          "updatedAt": "2023-10-22T02:04:31.713Z"
-                        },
-                        "uniqno": 1,
-                        "_changed": {},
-                        "_options": {
-                          "isNewRecord": true,
-                          "_schema": null,
-                          "_schemaDelimiter": ""
-                        },
-                        "isNewRecord": false,
-                        "email": "ilyas@gmail.com",
-                        "password": "$2b$10$ycBSH81CDq.vzPrs6It74u5L4uDLF8Kfr6NHATFr8Cjeo5yUSAunC"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "tidak ada nama, email, atau password",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "nama, email, dan password harus diisi"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Token tidak valid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Error"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Token tidak valid"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Akses ditolak",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Error"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Kamu tidak berkepentingan disini"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "email sudah terdaftar",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Failed"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "email sudah terdaftar"
-                        }
-                      }
+                      "example": "invalid token"
                     }
                   }
                 }
@@ -575,146 +350,8 @@
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API get all users",
-        "description": "ini API untuk mendapatkan semua data user",
-        "responses": {
-          "201": {
-            "description": "Sukses mengambil semua data user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Success"
-                    },
-                    "data": {
-                      "type": "object",
-                      "example": {
-                        "users": [
-                          {
-                            "id": 1,
-                            "name": "fadhlan",
-                            "age": 20,
-                            "address": "Bogor",
-                            "role": "Superadmin",
-                            "createdAt": "2023-10-21T05:45:15.380Z",
-                            "updatedAt": "2023-10-21T05:45:15.380Z",
-                            "Auth": {
-                              "id": 1,
-                              "email": "fadhlan@gmail.com",
-                              "password": "$2a$10$w21UZzMLTtQBAem8xZYqQOjw4gfv/I4x61J3SuCtMZCpVM6p5E9TC",
-                              "userId": 1,
-                              "createdAt": "2023-10-21T05:45:15.389Z",
-                              "updatedAt": "2023-10-21T05:45:15.389Z"
-                            }
-                          },
-                          {
-                            "id": 2,
-                            "name": "Juki",
-                            "age": 20,
-                            "address": "Bekasi",
-                            "role": "Superadmin",
-                            "createdAt": "2023-10-21T05:45:15.380Z",
-                            "updatedAt": "2023-10-21T05:45:15.380Z",
-                            "Auth": {
-                              "id": 2,
-                              "email": "Juki@gmail.com",
-                              "password": "$2a$10$M4V45l3wCRfrXkOBEchvOe6ymWBIsBaTdcKr/smXL7ChUJFescH5q",
-                              "userId": 2,
-                              "createdAt": "2023-10-21T05:45:15.389Z",
-                              "updatedAt": "2023-10-21T05:45:15.389Z"
-                            }
-                          },
-                          {
-                            "id": 3,
-                            "name": "Jose",
-                            "age": 20,
-                            "address": "Bekasi",
-                            "role": "Superadmin",
-                            "createdAt": "2023-10-21T05:45:15.380Z",
-                            "updatedAt": "2023-10-21T08:26:43.619Z",
-                            "Auth": {
-                              "id": 3,
-                              "email": "Jojo@gmail.com",
-                              "password": "$2a$10$isuqDbs2rfTVxZkTE/Vp8.Tt0H/Hhjqpl8cQ6668obTzUWiZ8.5BK",
-                              "userId": 3,
-                              "createdAt": "2023-10-21T05:45:15.389Z",
-                              "updatedAt": "2023-10-21T05:45:15.389Z"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Token tidak valid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Error"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Token tidak valid"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Akses ditolak",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "Error"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Kamu tidak berkepentingan disini"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/{id}": {
-      "get": {
-        "tags": ["Users"],
-        "security": [
-          {
-            "bearerToken": []
-          }
-        ],
-        "summary": "Return hasil hit API get user by id",
-        "description": "ini API untuk mendapatkan data user berdasarkan id ",
+        "summary": "Return result HIT API get user by Id",
+        "description": "This is an API for getting user data based on Id",
         "parameters": [
           {
             "name": "id",
@@ -729,7 +366,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Sukses mendapatkan data user berdasarkan id",
+            "description": "Success getting user data based on Id",
             "content": {
               "application/json": {
                 "schema": {
@@ -767,7 +404,7 @@
             }
           },
           "401": {
-            "description": "Token tidak valid",
+            "description": "Token isn't valid",
             "content": {
               "application/json": {
                 "schema": {
@@ -782,7 +419,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "Token tidak valid"
+                          "example": "Token Invalid"
                         }
                       }
                     }
@@ -792,7 +429,7 @@
             }
           },
           "403": {
-            "description": "Akses ditolak",
+            "description": "Access denied",
             "content": {
               "application/json": {
                 "schema": {
@@ -817,7 +454,7 @@
             }
           },
           "404": {
-            "description": "User tidak ada",
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -832,7 +469,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "User dengan id: 1 tidak ada"
+                          "example": "User with id: 1 not found"
                         }
                       }
                     }
@@ -844,55 +481,31 @@
         }
       }
     },
-    "/users/edit": {
-      "patch": {
+    "/users/{id}": {
+      "get": {
         "tags": ["Users"],
         "security": [
           {
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API edit user by login",
-        "description": "ini API untuk mengedit data user dengan login",
-        "requestBody": {
-          "description": "ini request body untuk edit user",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "jose"
-                  },
-                  "address": {
-                    "type": "string",
-                    "example": "jakarta"
-                  },
-                  "age": {
-                    "type": "integer",
-                    "example": 24
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "jose@gmail.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "josee123"
-                  },
-                  "confirmPassword": {
-                    "type": "string",
-                    "example": "josee123"
-                  }
-                }
-              }
-            }
+        "summary": "Return result HIT API get user by id",
+        "description": "This is an API for getting user data based on Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "User ID"
           }
-        },
+        ],
         "responses": {
           "201": {
-            "description": "Sukses mengedit data user dengan login",
+            "description": "Success getting user data based on Id",
             "content": {
               "application/json": {
                 "schema": {
@@ -905,20 +518,22 @@
                     "data": {
                       "type": "object",
                       "example": {
-                        "id": 1,
-                        "name": "jose",
-                        "age": 24,
-                        "address": "Jakarta",
-                        "role": "Superadmin",
-                        "createdAt": "2023-10-22T07:53:51.986Z",
-                        "updatedAt": "2023-10-22T08:23:37.388Z",
-                        "Auth": {
+                        "users": {
                           "id": 1,
-                          "email": "jose@gmail.com",
-                          "password": "$2b$10$aR8/K7FhtNG6oW8gZfzM7OWvICjO98dEYqLhONTw2ZCwJogi49aIi",
-                          "userId": 1,
-                          "createdAt": "2023-10-22T07:53:51.996Z",
-                          "updatedAt": "2023-10-22T08:23:37.395Z"
+                          "name": "fadhlan",
+                          "age": 20,
+                          "address": "Bogor",
+                          "role": "Superadmin",
+                          "createdAt": "2023-10-21T05:45:15.380Z",
+                          "updatedAt": "2023-10-21T05:45:15.380Z",
+                          "Auth": {
+                            "id": 1,
+                            "email": "fadhlan@gmail.com",
+                            "password": "$2a$10$w21UZzMLTtQBAem8xZYqQOjw4gfv/I4x61J3SuCtMZCpVM6p5E9TC",
+                            "userId": 1,
+                            "createdAt": "2023-10-21T05:45:15.389Z",
+                            "updatedAt": "2023-10-21T05:45:15.389Z"
+                          }
                         }
                       }
                     }
@@ -928,7 +543,7 @@
             }
           },
           "401": {
-            "description": "Token tidak valid",
+            "description": "Token isn't valid",
             "content": {
               "application/json": {
                 "schema": {
@@ -943,7 +558,57 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "Token tidak valid"
+                          "example": "Token invalid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "User with id: 1 not found"
                         }
                       }
                     }
@@ -963,8 +628,8 @@
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API edit user by id",
-        "description": "ini API untuk mengedit data user berdasarkan id ",
+        "summary": "Return result HIT API edit user by Id",
+        "description": "This is an API for editting user data based on Id",
         "parameters": [
           {
             "name": "id",
@@ -978,7 +643,7 @@
           }
         ],
         "requestBody": {
-          "description": "ini request body untuk edit user",
+          "description": "This is a request body for edit user",
           "content": {
             "application/json": {
               "schema": {
@@ -1015,7 +680,7 @@
         },
         "responses": {
           "201": {
-            "description": "Sukses mengedit data user berdasarkan id",
+            "description": "Success edit user data based on Id",
             "content": {
               "application/json": {
                 "schema": {
@@ -1051,7 +716,7 @@
             }
           },
           "401": {
-            "description": "Token tidak valid",
+            "description": "Token isn't valid",
             "content": {
               "application/json": {
                 "schema": {
@@ -1066,7 +731,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "Token tidak valid"
+                          "example": "Token invalid"
                         }
                       }
                     }
@@ -1076,7 +741,7 @@
             }
           },
           "403": {
-            "description": "Akses ditolak",
+            "description": "Access denied",
             "content": {
               "application/json": {
                 "schema": {
@@ -1101,7 +766,7 @@
             }
           },
           "404": {
-            "description": "User tidak ada",
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -1116,7 +781,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "User dengan id: 1 tidak ada"
+                          "example": "User with id: 1 not found"
                         }
                       }
                     }
@@ -1136,8 +801,8 @@
             "bearerToken": []
           }
         ],
-        "summary": "Return hasil hit API delete user by id",
-        "description": "ini API untuk menghapus data user berdasarkan id",
+        "summary": "Return result HIT API delete user by Id",
+        "description": "This is an API for deletting user data based on Id",
         "parameters": [
           {
             "name": "id",
@@ -1152,10 +817,10 @@
         ],
         "responses": {
           "201": {
-            "description": "Sukses menghapus data user berdasarkan id"
+            "description": "Success delete user data based on Id"
           },
           "401": {
-            "description": "Token tidak valid",
+            "description": "Token isn't valid",
             "content": {
               "application/json": {
                 "schema": {
@@ -1170,7 +835,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "Token tidak valid"
+                          "example": "Token invalid"
                         }
                       }
                     }
@@ -1180,7 +845,7 @@
             }
           },
           "403": {
-            "description": "Akses ditolak",
+            "description": "Access denied",
             "content": {
               "application/json": {
                 "schema": {
@@ -1205,7 +870,7 @@
             }
           },
           "404": {
-            "description": "User tidak ada",
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -1220,9 +885,1689 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "User dengan id: 6 tidak ada"
+                          "example": "User with id: 1 not found"
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "get": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return result HIT API get all transactions",
+        "description": "This is an API for getting all transactions data",
+        "responses": {
+          "201": {
+            "description": "Success getting all transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "users": [
+                          {
+                            "id": 1,
+                            "bookId": 1,
+                            "userId": 1,
+                            "libraryId": 1,
+                            "borrowDate": "2023-06-28T00:00:00.000Z",
+                            "returnDate": "2023-07-05T00:00:00.000Z",
+                            "status": "Requested",
+                            "createdAt": "2023-06-28T09:25:00.000Z",
+                            "updatedAt": "2023-06-28T09:25:00.000Z"
+                          },
+                          {
+                            "id": 2,
+                            "bookId": 2,
+                            "userId": 2,
+                            "libraryId": 1,
+                            "borrowDate": "2023-06-29T00:00:00.000Z",
+                            "returnDate": "2023-07-06T00:00:00.000Z",
+                            "status": "Approved",
+                            "createdAt": "2023-06-29T07:30:00.000Z",
+                            "updatedAt": "2023-06-29T07:30:00.000Z"
+                          },
+                          {
+                            "id": 3,
+                            "bookId": 3,
+                            "userId": 3,
+                            "libraryId": 2,
+                            "borrowDate": "2023-06-30T00:00:00.000Z",
+                            "returnDate": "2023-07-07T00:00:00.000Z",
+                            "status": "Cancelled",
+                            "createdAt": "2023-06-30T10:45:00.000Z",
+                            "updatedAt": "2023-06-30T10:45:00.000Z"
+                          },
+                          {
+                            "id": 4,
+                            "bookId": 4,
+                            "userId": 4,
+                            "libraryId": 2,
+                            "borrowDate": "2023-07-01T00:00:00.000Z",
+                            "returnDate": "2023-07-08T00:00:00.000Z",
+                            "status": "Borrowed",
+                            "createdAt": "2023-07-01T08:15:00.000Z",
+                            "updatedAt": "2023-07-01T08:15:00.000Z"
+                          },
+                          {
+                            "id": 5,
+                            "bookId": 5,
+                            "userId": 5,
+                            "libraryId": 3,
+                            "borrowDate": "2023-07-02T00:00:00.000Z",
+                            "returnDate": "2023-07-09T00:00:00.000Z",
+                            "status": "Returned",
+                            "createdAt": "2023-07-02T11:00:00.000Z",
+                            "updatedAt": "2023-07-02T11:00:00.000Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token isn't valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token invalid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/{id}": {
+      "get": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return result HIT API get transaction by Id",
+        "description": "This is an API for getting transaction data based on Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success getting transaction data based on Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "transaction": {
+                          "id": 1,
+                          "bookId": 1,
+                          "userId": 1,
+                          "libraryId": 1,
+                          "borrowDate": "2023-06-28T00:00:00.000Z",
+                          "returnDate": "2023-07-05T00:00:00.000Z",
+                          "status": "Requested",
+                          "createdAt": "2023-06-28T09:25:00.000Z",
+                          "updatedAt": "2023-06-28T09:25:00.000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token isn't valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token invalid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Transaction with id: 1 not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/edit/{id}": {
+      "patch": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return result HIT API edit transaction by Id",
+        "description": "This is an API for editting transaction data based on Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "requestBody": {
+          "description": "This is a request body for edit transaction",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bookId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "userId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "libraryId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "Approved"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success editting transaction data based on Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "bookId": 1,
+                        "userId": 1,
+                        "libraryId": 1,
+                        "borrowDate": "2023-06-28T00:00:00.000Z",
+                        "returnDate": "2023-07-05T00:00:00.000Z",
+                        "status": "Approved",
+                        "createdAt": "2023-06-28T09:25:00.000Z",
+                        "updatedAt": "2024-04-19T04:26:00.828Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token isn't valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token invalid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Transaction with id: 1 not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/delete/{id}": {
+      "delete": {
+        "tags": ["Transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return result HIT API delete transaction by Id",
+        "description": "This is an API for deletting transaction data based on Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Transaction ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success delete transaction data based on Id"
+          },
+          "401": {
+            "description": "Token isn't valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token invalid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Kamu tidak berkepentingan disini"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Transaction with id: 1 not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book/": {
+      "get": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return book data that has been filtered",
+        "description": "Use this API to do filtering",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "search=The Great Gatsby"
+            },
+            "description": "Seach param"
+          },
+          {
+            "name": "genre",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "genre=fiction"
+            },
+            "description": "shortby genre"
+          },
+          {
+            "name": "author",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "example": "author=scott    "
+            },
+            "description": "shortby author"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success to get book data based on filter param",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "book": {
+                      "type": "object",
+                      "example": {
+                        "id": 1,
+                        "title": "The Great Gatsby",
+                        "genre": "Fiction",
+                        "author": "F. Scott Fitzgerald",
+                        "language": "English",
+                        "publicationYear": 1925,
+                        "publisher": "Scribner",
+                        "imageCover": "http://via.placeholder.com/600x400",
+                        "numOfBooks": 10,
+                        "numBorrowed": 2,
+                        "rackId": 1,
+                        "createdAt": "2023-06-28T09:25:00.000Z",
+                        "updatedAt": "2023-06-28T09:25:00.000Z"
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "TotalData": 1,
+                        "totalPages": 1,
+                        "limit": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Create new book data",
+        "description": "This is an API for register member",
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "arknight"
+                  },
+                  "author": {
+                    "type": "string",
+                    "example": "jhon doe"
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "example": "Yostar"
+                  },
+                  "publicationYear": {
+                    "type": "integer",
+                    "example": 2020
+                  },
+                  "genre": {
+                    "type": "integer",
+                    "example": "action"
+                  },
+                  "numOfBooks": {
+                    "type": "string",
+                    "example": "3"
+                  },
+                  "numBorrowed": {
+                    "type": "string",
+                    "example": "0"
+                  },
+                  "rackId": {
+                    "type": "string",
+                    "example": "1"
+                  },
+                  "language": {
+                    "type": "string",
+                    "example": "English"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success adding new book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "book": {
+                      "type": "object",
+                      "example": {
+                        "imageCover": "https://dailymockup.com/wp-content/uploads/edd/2019/04/free-book-cover-mockup-psd.jpg",
+                        "id": 11,
+                        "title": "arknight",
+                        "genre": "action",
+                        "author": "jhon doe",
+                        "language": "English",
+                        "publicationYear": 2020,
+                        "publisher": "Yostar",
+                        "numOfBooks": 3,
+                        "numBorrowed": 0,
+                        "rackId": 1,
+                        "updatedAt": "2024-04-20T18:33:03.010Z",
+                        "createdAt": "2024-04-20T18:33:03.010Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There is a field with null value  ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Input cant be null"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Get book by id",
+        "description": "Use this API to GET book data by id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2
+            },
+            "description": "Book ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success getting book data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "books": {
+                      "id": 2,
+                      "title": "To Kill a Mockingbird",
+                      "genre": "Fiction",
+                      "author": "Harper Lee",
+                      "language": "English",
+                      "publicationYear": 1960,
+                      "publisher": "J. B. Lippincott & Co.",
+                      "imageCover": "http://via.placeholder.com/600x400",
+                      "numOfBooks": 8,
+                      "numBorrowed": 1,
+                      "rackId": 2,
+                      "createdAt": "2023-06-29T07:30:00.000Z",
+                      "updatedAt": "2023-06-29T07:30:00.000Z",
+                      "Rack": {
+                        "id": 2,
+                        "rackNumber": 2,
+                        "floorNumber": 1,
+                        "libraryId": 2,
+                        "createdAt": "2023-06-03T09:00:00.000Z",
+                        "updatedAt": "2023-06-03T09:00:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Book not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Edit book data",
+        "description": "Use this API to edit or update books data ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 3
+            },
+            "description": "User ID"
+          }
+        ],
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Servant of Evil"
+                  },
+                  "genre": {
+                    "type": "string",
+                    "example": "Fiction"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success edit book data based on Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 3,
+                        "title": "Servant of Evil",
+                        "genre": "Fiction",
+                        "author": "George Orwell",
+                        "language": "English",
+                        "publicationYear": 1949,
+                        "publisher": "Secker & Warburg",
+                        "imageCover": "http://via.placeholder.com/600x400",
+                        "numOfBooks": 6,
+                        "numBorrowed": 0,
+                        "rackId": 3,
+                        "createdAt": "2023-06-30T10:45:00.000Z",
+                        "updatedAt": "2024-04-20T19:54:03.297Z",
+                        "Rack": {
+                          "id": 3,
+                          "rackNumber": 3,
+                          "floorNumber": 2,
+                          "libraryId": 3,
+                          "createdAt": "2023-06-04T09:00:00.000Z",
+                          "updatedAt": "2023-06-04T09:00:00.000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Delete book data",
+        "description": "Use this API to delete books ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 3
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success deleting book data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book has been deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find book with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rack": {
+      "get": {
+        "tags": ["Racks"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return Result HIT API for Get All Racks",
+        "description": "This is an API for getting all racks data",
+        "responses": {
+          "201": {
+            "description": "Success get all racks data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "pagination": {
+                          "totalData": 10,
+                          "totalPages": 1,
+                          "pageNum": 1,
+                          "pageSize": 10
+                      },
+                      "racks": [
+                          {
+                              "id": 1,
+                              "rackNumber": 1,
+                              "floorNumber": 1,
+                              "libraryId": 1,
+                              "createdAt": "2023-06-02T09:00:00.000Z",
+                              "updatedAt": "2023-06-02T09:00:00.000Z"
+                          },
+                          {
+                              "id": 2,
+                              "rackNumber": 2,
+                              "floorNumber": 1,
+                              "libraryId": 2,
+                              "createdAt": "2023-06-03T09:00:00.000Z",
+                              "updatedAt": "2023-06-03T09:00:00.000Z"
+                          },
+                          {
+                              "id": 3,
+                              "rackNumber": 3,
+                              "floorNumber": 2,
+                              "libraryId": 3,
+                              "createdAt": "2023-06-04T09:00:00.000Z",
+                              "updatedAt": "2023-06-04T09:00:00.000Z"
+                          },
+                          {
+                              "id": 4,
+                              "rackNumber": 4,
+                              "floorNumber": 2,
+                              "libraryId": 4,
+                              "createdAt": "2023-06-05T09:00:00.000Z",
+                              "updatedAt": "2023-06-05T09:00:00.000Z"
+                          },
+                          {
+                              "id": 5,
+                              "rackNumber": 5,
+                              "floorNumber": 3,
+                              "libraryId": 5,
+                              "createdAt": "2023-06-06T09:00:00.000Z",
+                              "updatedAt": "2023-06-06T09:00:00.000Z"
+                          },
+                          {
+                              "id": 6,
+                              "rackNumber": 6,
+                              "floorNumber": 3,
+                              "libraryId": 6,
+                              "createdAt": "2023-06-07T09:00:00.000Z",
+                              "updatedAt": "2023-06-07T09:00:00.000Z"
+                          },
+                          {
+                              "id": 7,
+                              "rackNumber": 7,
+                              "floorNumber": 4,
+                              "libraryId": 7,
+                              "createdAt": "2023-06-08T09:00:00.000Z",
+                              "updatedAt": "2023-06-08T09:00:00.000Z"
+                          },
+                          {
+                              "id": 8,
+                              "rackNumber": 8,
+                              "floorNumber": 4,
+                              "libraryId": 8,
+                              "createdAt": "2023-06-09T09:00:00.000Z",
+                              "updatedAt": "2023-06-09T09:00:00.000Z"
+                          },
+                          {
+                              "id": 9,
+                              "rackNumber": 9,
+                              "floorNumber": 5,
+                              "libraryId": 9,
+                              "createdAt": "2023-06-10T09:00:00.000Z",
+                              "updatedAt": "2023-06-10T09:00:00.000Z"
+                          },
+                          {
+                              "id": 10,
+                              "rackNumber": 10,
+                              "floorNumber": 5,
+                              "libraryId": 10,
+                              "createdAt": "2023-06-11T09:00:00.000Z",
+                              "updatedAt": "2023-06-11T09:00:00.000Z"
+                          }
+                      ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token isn't valid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Token invalid"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rack/{id}": {
+      "get": {
+        "tags": ["Racks"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Get rack by id",
+        "description": "Use this API to GET rack data by id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+            "description": "Book ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success getting rack data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "rack": {
+                      "id": 1,
+                      "rackNumber": 1,
+                      "floorNumber": 1,
+                      "libraryId": 1,
+                      "createdAt": "2023-06-02T09:00:00.000Z",
+                      "updatedAt": "2023-06-02T09:00:00.000Z"
+                     }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find rack with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Rack not found"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Racks"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Edit rack data",
+        "description": "Use this API to edit or update rack data ",
+        "parameters": [
+          {
+            "name": "rackNumber",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "example": "rackNumber=2"
+            },
+            "description": "Update Rack Number"
+          },
+          {
+            "name": "floorNumber",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "example": "floorNumber=3"
+            },
+            "description": "Update Floor Number"
+          },
+          {
+            "name": "libraryId",
+            "in": "path",
+            "schema": {
+              "type": "integer",
+              "example": "libraryId"
+            },
+            "description": "Update Library Id"
+          }
+        ],
+        "requestBody": {
+          "description": "Request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rackNumber": {
+                    "type": "integer",
+                    "example":2
+                  },
+                  "floorNumber":{
+                    "type": "integer",
+                    "example": 3
+                  },
+                  "libraryId": {
+                    "type": "integer",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success edit rack data based on Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type" : "string",
+                      "example" : "Rack updated Successful"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {
+                        "id": 3,
+                        "rackNumber": 2,
+                        "floorNumber": 3,
+                        "libraryId": 2,
+                        "createdAt": "2023-06-04T09:00:00.000Z",
+                        "updatedAt": "2024-04-26T01:09:03.369Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find rack with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Rack not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Racks"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Delete rack data",
+        "description": "Use this API to delete rack by Id ",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 3
+            },
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success deleting rack data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Rack has been deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Token not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You are not authorized. Required role Admin or Staff"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cant find rack with requested id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Rack not found"
                     }
                   }
                 }
@@ -1237,7 +2582,8 @@
     "securitySchemes": {
       "bearerToken": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

@@ -1,29 +1,8 @@
 const { Model, Op, where } = require("sequelize");
 const {Book, Rack, User} = require("../models")
 const apiError = require("../utils/apiError");
-const book = require("../models/book");
-const auth = require("../models/auth");
 const imagekit = require("../lib/imagekit");
-
-// function
-const updateData = async (bodyFromReq, img, bodyFromDB) => {
-    return {
-        title: bodyFromReq.title || bodyFromDB.title, 
-        genre: bodyFromReq.genre || bodyFromDB.genre, 
-        author: bodyFromReq.author || bodyFromDB.author, 
-        language: bodyFromReq.language || bodyFromDB.language, 
-        publicationYear: bodyFromReq.publicationYear || bodyFromDB.publicationYear, 
-        publisher: bodyFromReq.publisher || bodyFromDB.publisher, 
-        imageCover: img,
-        numOfBooks: bodyFromReq.numOfBooks || bodyFromDB.numOfBooks, 
-        numBorrowed: bodyFromReq.numBorrowed || bodyFromDB.numBorrowed, 
-        rackId: bodyFromReq.rackId || bodyFromDB.rackId,
-        createdAt: bodyFromDB.createdAt,
-        updatedAt: new Date()
-    }
-
-}
-// -----
+const validator = require("../middlewares/validator/bookValidator")
 
 const filterBooks = async (req, res, next) => {
     try {
@@ -52,9 +31,11 @@ const filterBooks = async (req, res, next) => {
             offset: page * limit,
             limit: limit,
           });
+        
+        if(count == 0) return next(new apiError("Book Not Found", 404))
       
         const totalPages = Math.ceil(count / limit);    
-        res.status(200).json({
+        res.status(201).json({
             message: "Success",
             data: {
                 TotalData: count,
@@ -70,22 +51,14 @@ const filterBooks = async (req, res, next) => {
 
 const createNewBooks = async (req, res, next) => {
     try {
-        const {
-            title, 
-            genre, 
-            author,
-            language,
-            publicationYear,
-            publisher,
-            numOfBooks,
-            numBorrowed,
-            rackId
-        } = req.body
 
+        const {error, value} =  validator.validateCreateBook(req.body)
+        if(error) next(new apiError(error, 400))
+        
         const checkRack = await Rack.findOne({
             where: {
                 id:{
-                    [Op.eq]: rackId
+                    [Op.eq]: value.rackId
                 }}
         })
 
@@ -113,20 +86,10 @@ const createNewBooks = async (req, res, next) => {
             )
         }
 
-        const newBook = await Book.create({
-            title,
-            genre,
-            author,
-            language,
-            publicationYear,
-            publisher,
-            imageCover: image,
-            numOfBooks,
-            numBorrowed,
-            rackId
-        })
+        value.imageCover = image
+        const newBook = await Book.create(value)
 
-        res.status(200).json({
+        res.status(201).json({
             status: "success",
             book: newBook
         })
@@ -138,24 +101,28 @@ const createNewBooks = async (req, res, next) => {
 const updateBookData = async (req, res, next) => {
     try {
       const id = req.params.id;
-      const files = req.files;
+      const files = req.files   ;
       let uploadedImageUrls;
+      console.log(req.body)
   
+      const {error, value} =  validator.validateUpdateBook(req.body)
+        if(error) next(new apiError(error, 400))  
+
       const checkId = await Book.findOne({
         where: {id: id},
         include: ["Rack"]
       });
 
       if (!checkId) return next(new apiError(`Book with ID ${id} not found.`));
-      if(checkId.Rack.id !== req.user.libraryId) return next(new apiError(`Sorry but you dont have access in this library`, 400  ))
+      if(req.user.role == "Staff"){
+        if(checkId.Rack.libraryId !== req.user.libraryId) return next(new apiError("Sorry but you dont have access in this library"))
+      }      
       
-  
       if (files) {
         await Promise.all(
           files.map(async (file) => {
             const split = file.originalname.split(".");
             const extension = split[split.length - 1];
-  
             const uploadImg = await imagekit.upload({
               file: file.buffer,
               fileName: `file_${crypto.randomUUID()}.${extension}`,
@@ -166,9 +133,10 @@ const updateBookData = async (req, res, next) => {
       } else {
         uploadedImageUrls = checkId.imageCover; 
       }
-  
-      const updatedBookData = await updateData(req.body, uploadedImageUrls, checkId);
-      const updatedBook = await checkId.update(updatedBookData);
+
+      value.imageCover = uploadedImageUrls
+      console.log(value.imageCover)
+      const updatedBook = await checkId.update(value);
   
       res.status(200).json({
         status: "Success",
@@ -193,7 +161,7 @@ const findBooksById = async (req, res, next) => {
         });
         console.log(book.rackId)
 
-        res.status(200).json({
+        res.status(201).json({
             status: "Success",
             data: {
                 books: book,

@@ -5,34 +5,37 @@ const Transaction = require("../controllers/transactionController");
 const authenticate = require("../middlewares/authenticate");
 const checkOwnership = require("../middlewares/checkOwnership");
 const checkRole = require("../middlewares/checkRole");
+const checkDateFields = require("../middlewares/checkFieldTransaction");
 
 router.get("/", authenticate, Transaction.findTransactions);
 router.post(
-  "/",
+  "/create",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkDateFields,
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.createTransaction
 );
 router.get(
   "/:id",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner"]),
   Transaction.findTransactionById
 );
 router.patch(
-  "/:id",
+  "/edit/:id",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkDateFields,
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.updateTransaction
 );
 router.delete(
-  "/:id",
+  "/delete/:id",
   authenticate,
   checkOwnership,
-  checkRole(["Admin", "Manager"]),
+  checkRole(["Admin", "Manager", "Owner", "Staff"]),
   Transaction.deleteTransaction
 );
 

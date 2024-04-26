@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Auth } = require("../models");
 const imagekit = require("../lib/imagekit");
 const ApiError = require("../utils/apiError");
 
@@ -123,7 +123,7 @@ const updateUser = async (req, res, next) => {
 
     res.status(200).json({
       status: "Success",
-      message: "User updated successful",
+      message: "User updated Successful",
       updatedUser,
     });
   } catch (err) {
@@ -138,6 +138,12 @@ const deleteUser = async (req, res, next) => {
     if (!user) {
       next(new ApiError(`User with ID ${req.params.id} not found`, 404));
     }
+
+    await Auth.destroy({
+      where: {
+        userId: req.params.id,
+      },
+    });
 
     await User.destroy({
       where: {

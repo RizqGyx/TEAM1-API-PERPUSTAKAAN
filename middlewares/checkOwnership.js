@@ -3,7 +3,7 @@ const { Library, User } = require("../models");
 
 const checkOwnership = async (req, res, next) => {
   try {
-    if (req.user.role === "Admin") {
+    if (req.user.role === "Owner") {
       return next();
     } else {
       const library = await Library.findByPk(req.params.id);

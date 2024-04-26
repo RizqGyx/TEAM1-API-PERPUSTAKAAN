@@ -36,6 +36,7 @@ module.exports = {
       imageCover: {
         type: Sequelize.TEXT,
         allowNull: false,
+        defaultValue: "http://via.placeholder.com/600x400"
       },
       numOfBooks: {
         type: Sequelize.INTEGER,

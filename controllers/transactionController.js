@@ -8,10 +8,14 @@ const createTransaction = async (req, res, next) => {
     const returnDate = new Date(currentDate);
     returnDate.setDate(returnDate.getDate() + 3);
 
+    const capitalized =
+      req.body.status.charAt(0).toUpperCase() + req.body.status.slice(1);
+
     const transaction = await Transaction.create({
       ...req.body,
       borrowDate: currentDate,
       returnDate: returnDate,
+      status: capitalized,
     });
 
     res.status(201).json({
@@ -29,8 +33,7 @@ const findTransactions = async (req, res, next) => {
   try {
     const {
       bookId,
-      memberId,
-      staffId,
+      userId,
       libraryId,
       borrowDate,
       returnDate,
@@ -39,13 +42,12 @@ const findTransactions = async (req, res, next) => {
       limit,
     } = req.query;
     const pageNum = parseInt(page) || 1;
-    const pageSize = parseInt(limit) || 10;
-    const offset = (pageNum - 1) * pageSize;
+    const limitData = parseInt(limit) || 10;
+    const offset = (pageNum - 1) * limitData;
 
     const whereClause = {};
     if (bookId) whereClause.bookId = bookId;
-    if (memberId) whereClause.memberId = memberId;
-    if (staffId) whereClause.staffId = staffId;
+    if (userId) whereClause.userId = userId;
     if (libraryId) whereClause.libraryId = libraryId;
     if (borrowDate) whereClause.borrowDate = borrowDate;
     if (returnDate) whereClause.returnDate = returnDate;
@@ -54,8 +56,7 @@ const findTransactions = async (req, res, next) => {
     if (req.query.search) {
       whereClause[Op.or] = {
         bookId: { [Op.like]: `%${req.query.search}%` },
-        memberId: { [Op.like]: `%${req.query.search}%` },
-        staffId: { [Op.like]: `%${req.query.search}%` },
+        userId: { [Op.like]: `%${req.query.search}%` },
         libraryId: { [Op.like]: `%${req.query.search}%` },
         borrowDate: { [Op.like]: `%${req.query.search}%` },
         returnDate: { [Op.like]: `%${req.query.search}%` },
@@ -66,10 +67,10 @@ const findTransactions = async (req, res, next) => {
     const { count, rows: transactions } = await Transaction.findAndCountAll({
       where: whereClause,
       offset,
-      limit: pageSize,
+      limit: limitData,
     });
 
-    const totalPages = Math.ceil(count / pageSize);
+    const totalPages = Math.ceil(count / limitData);
 
     res.status(200).json({
       status: "Success",
@@ -78,7 +79,7 @@ const findTransactions = async (req, res, next) => {
           totalData: count,
           totalPages,
           pageNum,
-          pageSize,
+          limitData,
         },
         transactions,
       },
@@ -109,9 +110,25 @@ const findTransactionById = async (req, res, next) => {
 const updateTransaction = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const [updatedRowsCount] = await Transaction.update(req.body, {
-      where: { id },
-    });
+    const { borrowDate, returnDate, status, ...updateData } = req.body;
+
+    const capitalizedStatus = status.charAt(0).toUpperCase() + status.slice(1);
+
+    if (borrowDate !== undefined || returnDate !== undefined) {
+      throw new ApiError("Borrow date and return date cannot be modified", 400);
+    }
+
+    const [updatedRowsCount] = await Transaction.update(
+      {
+        ...updateData,
+        status: capitalizedStatus,
+      },
+      {
+        where: { id },
+        fields: ["bookId", "memberId", "staffId", "libraryId", "status"],
+      }
+    );
+
     if (updatedRowsCount === 0) {
       throw new ApiError("Transaction not found", 404);
     }
